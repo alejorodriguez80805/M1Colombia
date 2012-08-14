@@ -1,0 +1,22 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+<<<<<<< HEAD
+
+.svn/
+.DS_STORE
+=======
+>>>>>>> bac4930da369e1fd1f52eae89bbf18bb313e5722
