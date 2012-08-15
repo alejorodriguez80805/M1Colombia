@@ -47,9 +47,10 @@
     <string name="CONSTANTE_ACTUALIZAR_MODELO_EDICION_URL">http://minicolombia.herokuapp.com/familiaMini/hayNuevosModelos/</string>
     <string name="CONSTANTE_CARGAR_NOTICIAS_URL">http://minicolombia.herokuapp.com/noticias/darUltimasNoticias/</string>
     <string name="CONSTANTE_NOTICIAS_CATEGORIAS">http://minicolombia.herokuapp.com/noticias/darNoticiasPorCategoria/</string>
-    <string name="CONSTANTE_DESCARGAS_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darWallpapers/</string>
+    <string name="CONSTANTE_DESCARGAS_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darUltimosWallpapers/</string>
     <string name="CONSTANTE_DESCARGAS_RINGTONES">http://minicolombia.herokuapp.com/descargas/darRingtones/</string>
     <string name="CONSTANTE_COMUNIDAD_GALERIA">http://minicolombia.herokuapp.com/comunidad/darUltimasImagenes/</string>
+    <string name="CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darSiguientesWallpapers/</string>
 
     <!-- Constantes individuales para actualizar modelo y edicion -->
     <string name="TAG_CREAR">CREATE</string>
@@ -86,6 +87,7 @@
     <string name="TAG_RINGTONES">ringtones</string>
     <string name="TAG_NOMBRE_RINGTONES">nombre</string>
     <string name="TAG_URL_RINGTONES">archivoURL</string>
+    <string name="TAG_WALLPAPERS_NUMERO">num_wallpapers</string>
 
     <!-- Tags para la seccion de descargas -->
     <string name="TAG_COMUNIDAD_GALERIA_IMAGENES">imagenes</string>

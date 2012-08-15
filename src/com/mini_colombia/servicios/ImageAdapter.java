@@ -97,6 +97,7 @@ public class ImageAdapter extends BaseAdapter
 				i.putExtra("posActual", position +1);
 				i.putExtra("titulo", arregloImagenes.get(position).getNombre());
 				i.putExtra("url", arregloImagenes.get(position).getImagen());
+				i.putExtra("tieneTitulo", true);
 				View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i).getDecorView();
 				ComunidadInicio actividadPadre = (ComunidadInicio) padre;
 				actividadPadre.reemplazarView(v1);

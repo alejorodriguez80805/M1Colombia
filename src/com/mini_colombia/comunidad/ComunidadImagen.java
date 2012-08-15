@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -28,7 +29,7 @@ import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.Resize;
 
-public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitmap>
+public class ComunidadImagen extends Activity implements AsyncTaskListener<ArrayList<Bitmap>>
 {
 	private static final String NOMBRE_CARPETA = "MINI";
 
@@ -41,6 +42,8 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitma
 	private static final String EXTENSION = ".jpg";
 
 	private String nombreImagen;
+	
+	private boolean tieneTitulo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -52,12 +55,20 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitma
 		int posActual = getIntent().getIntExtra("posActual", 0);
 		int size = getIntent().getIntExtra("size", 0);
 
+		boolean tieneTitulo = getIntent().getBooleanExtra("tieneTitulo", false);
+		
+		nombreImagen = getIntent().getStringExtra("titulo");
+		
+		if(tieneTitulo)
+		{
+			TextView tituloImagen = (TextView) findViewById(R.id.comunidad_nombre_imagen);
+			tituloImagen.setText(nombreImagen);
+		}
+		
 		TextView titulo = (TextView) findViewById(R.id.comunidad_imagen_titulo);
 		titulo.setText(posActual + " de " + size);
 
-		nombreImagen = getIntent().getStringExtra("titulo");
-		TextView tituloImagen = (TextView) findViewById(R.id.comunidad_nombre_imagen);
-		tituloImagen.setText(nombreImagen);
+
 
 		String url = getIntent().getStringExtra("url");
 		DescargarImagen tarea = new DescargarImagen(darContexto(), this);
@@ -66,19 +77,22 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitma
 	}
 
 
-	private class DescargarImagen extends AsyncTask<String, Void, Bitmap>
+	private class DescargarImagen extends AsyncTask<String, Void, ArrayList<Bitmap>>
 	{
 
-		private AsyncTaskListener<Bitmap> callback;
+		private AsyncTaskListener<ArrayList<Bitmap>> callback;
 
 		private Context context;
 
 		private ProgressDialog progress;
+		
+		private ArrayList<Bitmap> imagenes;
 
-		public DescargarImagen(Context context, AsyncTaskListener<Bitmap> callback)
+		public DescargarImagen(Context context, AsyncTaskListener<ArrayList<Bitmap>> callback)
 		{
 			this.context = context;
 			this.callback = callback;
+			imagenes = new ArrayList<Bitmap>();
 		}
 
 		@Override
@@ -88,15 +102,17 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitma
 		}
 
 		@Override
-		protected Bitmap doInBackground(String... params) 
+		protected ArrayList<Bitmap> doInBackground(String... params) 
 		{
 			Bitmap b = DescargarImagenOnline.descargarImagen(params[0]);
 			Bitmap bFinal = Resize.resizeBitmap(b, 292, 440);
-			return bFinal;
+			imagenes.add(b);
+			imagenes.add(bFinal);
+			return imagenes;
 		}
 
 		@Override
-		protected void onPostExecute(Bitmap result) 
+		protected void onPostExecute(ArrayList<Bitmap> result) 
 		{
 			progress.dismiss();
 			callback.onTaskComplete(result);
@@ -114,11 +130,11 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Bitma
 
 
 	@Override
-	public void onTaskComplete(Bitmap result) 
+	public void onTaskComplete(ArrayList<Bitmap> result) 
 	{
 		ImageView imagen = (ImageView) findViewById(R.id.imagenComunidadGaleria);
-		imagen.setImageBitmap(result);
-		bImagen = result;
+		imagen.setImageBitmap(result.get(1));
+		bImagen = result.get(0);
 
 
 

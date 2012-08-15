@@ -1,6 +1,12 @@
 package com.mini_colombia.descargas;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,33 +24,45 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.mini_colombia.R;
+import com.mini_colombia.auxiliares.ImagenGaleria;
 import com.mini_colombia.parser.Parser;
+import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.Resize;
 
-public class DescargasWallpapers extends Activity 
+public class DescargasWallpapers extends Activity implements AsyncTaskListener<ArrayList<ImagenGaleria>>
 {
 
 	private static final int NUM_WALLPAPERS=1;
-	
+
 	private static final String IMAGEN="imagen";
+	
+	private static final String NOMBRE_CARPETA = "MINI";
+
+	private static final String SEPARADOR = "/";
+	
+	private static final String EXTENSION = ".jpg";
+	
+	private Bitmap imagen;
+	
+	private int numActualImagenes;
+	
 
 	private ArrayList<Bitmap> thumbnails;
 	private ArrayList<Bitmap> imagenes;
-	
+
 	private int numWallpapers;
 
 	@Override
@@ -54,11 +72,15 @@ public class DescargasWallpapers extends Activity
 		thumbnails = new ArrayList<Bitmap>();
 		imagenes = new ArrayList<Bitmap>();
 		setContentView(R.layout.activity_descargas_wallpapers);
-		new DescargarThumbnails().execute(NUM_WALLPAPERS);
-		
+		//Se pone true dado que es la primera vez que se hace fetch de los wallpapers
+		DescargarThumbnails tarea = new DescargarThumbnails(darContexto(), this, true);
+		tarea.execute((Void)null);
+
 		Typeface tipoMini = Typeface.createFromAsset(getAssets(), "fonts/mibd.ttf");
 		TextView titulo = (TextView)findViewById(R.id.tituloDescargasWallpapers);
 		titulo.setTypeface(tipoMini);
+		
+		numActualImagenes = 0;
 
 
 	}
@@ -70,10 +92,25 @@ public class DescargasWallpapers extends Activity
 	}
 
 
-	private class DescargarThumbnails extends AsyncTask<Integer, Integer, Boolean>
+	private class DescargarThumbnails extends AsyncTask<Void, Integer, ArrayList<ImagenGaleria>>
 	{
 
-		ProgressDialog progress;
+		private ProgressDialog progress;
+
+		private ArrayList<ImagenGaleria> arregloImagenes;
+
+		private Context context;
+
+		private AsyncTaskListener<ArrayList<ImagenGaleria>> callback;
+
+		private boolean primeraVez;
+
+		public DescargarThumbnails(Context context, AsyncTaskListener<ArrayList<ImagenGaleria>> callback, boolean primeraVez)
+		{
+			this.context = context;
+			this.callback = callback;
+			this.primeraVez = primeraVez;
+		}
 
 		@Override
 		protected void onPreExecute() 
@@ -82,39 +119,42 @@ public class DescargasWallpapers extends Activity
 			progress = ProgressDialog.show(darContexto(),"","Cargando...",false);
 		}
 
-		@Override
+		
 		/**
 		 * Metodo que descarga tanto 
 		 */
-		protected Boolean doInBackground(Integer... params) 
+		protected ArrayList<ImagenGaleria> doInBackground(Void... params)
 		{
 
-			boolean respuesta = false;
 			Parser jparser = new Parser();
-			JSONObject jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_WALLPAPERS));
+			JSONObject jsonObject;
+			arregloImagenes = new ArrayList<ImagenGaleria>();
+			if(primeraVez)
+			{
+				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_WALLPAPERS));
+				try 
+				{
+					numWallpapers = Integer.parseInt(jsonObject.getString(getString(R.string.TAG_WALLPAPERS_NUMERO_TOTAL)));
+				} 
+				catch (NumberFormatException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				catch (JSONException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			else
+				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS)+params[0]);
+
 			try 
 			{
 				JSONArray wallpapers = jsonObject.getJSONArray(getString(R.string.TAG_WALLPAPERS));
-				numWallpapers = Integer.parseInt(jsonObject.getString(getString(R.string.TAG_WALLPAPERS_NUMERO_TOTAL))); 
-				int parametro = params[0];
-				int cota;
-				int i;
-				if(parametro!=0)
-				{
-					cota = parametro;
-					respuesta = true;
-					i = 0;
-				}
-					
-				else
-				{
-					cota = wallpapers.length();
-					i= NUM_WALLPAPERS;
-				}
-
-				
-
-				while(i<cota)
+				for(int i=0;i<wallpapers.length();i++)
 				{
 					JSONObject wallpaper = wallpapers.getJSONObject(i);
 
@@ -128,9 +168,10 @@ public class DescargasWallpapers extends Activity
 
 					//Manejo imagen
 					String urlImagen = wallpaper.getString(getString(R.string.TAG_WALLPAPERS_IMAGEN));
-					imagenes.add(DescargarImagenOnline.descargarImagen(urlImagen));
-					
-					i++;
+					//				Bitmap imagen = DescargarImagenOnline.descargarImagen(urlImagen));
+					//				imagenes.add(DescargarImagenOnline.descargarImagen(urlImagen));
+					ImagenGaleria elemento = new ImagenGaleria(nombre, thumbnailPostResize, urlImagen);
+					arregloImagenes.add(elemento);
 				}
 			} 
 			catch (JSONException e) 
@@ -139,107 +180,164 @@ public class DescargasWallpapers extends Activity
 				e.printStackTrace();
 			}
 
-			return respuesta;
+
+			return arregloImagenes;
+
+
+
+
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) 
+		protected void onPostExecute(ArrayList<ImagenGaleria> result) 
 		{
 			if(progress.isShowing())
 				progress.dismiss();
-			pintarPantalla(result);
+			callback.onTaskComplete(result);
 		}
+
+
 
 	}
 
-	private void pintarPantalla(boolean numVez)
+	public void onTaskComplete(ArrayList<ImagenGaleria> result)
 	{
+		numActualImagenes+=3;
+		
 		LinearLayout layoutPrincipal = (LinearLayout) findViewById(R.id.linearLayoutWallpapers);
-		int i;
-		int cota;
-		boolean pintarVerMas = false;
 		
-		if(numVez)
+		for(int i=0;i<result.size();i++)
 		{
-			i = 0;
-			cota = NUM_WALLPAPERS;
-			pintarVerMas = true;
-		}
-		
-		else
-		{
-			
+			final int j =i;
+			final int k = result.size();
+			final String url= result.get(i).getImagen();
+			final String titulo = result.get(i).getNombre();
 			View v = new View(this);
-			LinearLayout.LayoutParams vParams = new LinearLayout.LayoutParams(10,10);
-			v.setLayoutParams(vParams);	
+			LinearLayout.LayoutParams vParams = new LinearLayout.LayoutParams(0,10);
+			v.setLayoutParams(vParams);
 			layoutPrincipal.addView(v);
-			i = NUM_WALLPAPERS;
-			cota = thumbnails.size();
-		}
-		
-		while(i<cota)
-		{
-			final int posicionActual =i;
 			
 			RelativeLayout relLayout = new RelativeLayout(this);
 			relLayout.setBackgroundColor(Color.TRANSPARENT);
-			relLayout.setBackgroundDrawable(new BitmapDrawable(thumbnails.get(i)));
+			relLayout.setBackgroundDrawable(new BitmapDrawable(result.get(i).getThumbnail()));
 			RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 			
+		
 			
-			
-			Log.d("prueba", "" + relLayout.getWidth());
 			
 			Button thumbnail = new Button(this);
 			RelativeLayout.LayoutParams bParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,292);
-			
-			final Bitmap imagen = imagenes.get(i);
-			
 			thumbnail.setLayoutParams(bParams);
 			thumbnail.setBackgroundColor(Color.TRANSPARENT);
-			relLayout.addView(thumbnail);
-			bParams.setMargins(0, 0, 0, 40);
+			bParams.setMargins(0, 7, 0, 0);
 			thumbnail.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) 
 				{
-					Intent i = new Intent(DescargasWallpapers.this, DescargasImagen.class);
-					i.putExtra(IMAGEN, imagen);
-					i.putExtra("actual", posicionActual+1);
-					i.putExtra("total", numWallpapers);
-					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					View v1 = DescargasInicio.grupoDescargas.getLocalActivityManager().startActivity("", i).getDecorView();
+					Intent i1 = new Intent(DescargasWallpapers.this, com.mini_colombia.comunidad.ComunidadImagen.class);
+					i1.putExtra("posActual", j+1);
+					i1.putExtra("size", k);
+					i1.putExtra("url",url);
+					i1.putExtra("titulo", titulo);
+					i1.putExtra("tieneTitulo",false);
+					i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					View v1 = DescargasInicio.grupoDescargas.getLocalActivityManager().startActivity("", i1).getDecorView();
 					DescargasInicio actividadPadre = (DescargasInicio) getParent();
 					actividadPadre.reemplazarView(v1);
 				}
 			});
-
-
+			relLayout.addView(thumbnail);
+			
 			Button bDescargar = new Button(this);
 			bDescargar.setBackgroundColor(Color.TRANSPARENT);
+			final String urlImagen = result.get(i).getImagen();
+			final String nombreImagen = result.get(i).getNombre();
 			bDescargar.setOnClickListener(new OnClickListener() 
 			{
-				
+
 				@Override
 				public void onClick(View v) 
 				{
-					MediaStore.Images.Media.insertImage(getContentResolver(), imagen, "Mini","");
-					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
-					alertBuilder.setMessage("La imagen ha sido descargada a la galeria del telefono");
-					alertBuilder.setCancelable(false);
-					alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+					Bitmap b = null;
+					String path = Environment.getExternalStorageDirectory().toString() + SEPARADOR + NOMBRE_CARPETA;
+					File directorio = new File(path);
+					if(!directorio.exists())
+						directorio.mkdir();
+					
+					File f = new File(path,nombreImagen+ EXTENSION);
+					if(!f.exists())
 					{
+						try 
+						{
+							b = new DescargarImagen().execute(urlImagen).get();
+						} 
+						catch (InterruptedException e1) 
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						catch (ExecutionException e1) 
+						{
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						OutputStream fos;
+						try 
+						{
+							fos = new FileOutputStream(f);
+							b.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+							fos.flush();
+							fos.close();
+							MediaStore.Images.Media.insertImage(getContentResolver(), f.getAbsolutePath(), nombreImagen+ EXTENSION, f.getName());
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("La imagen ha sido descargada.");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
 
-						@Override
-						public void onClick(DialogInterface dialog, int which) 
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
+							
+						} 
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} 
+						catch (IOException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+					else
+					{
+						AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+						alertBuilder.setMessage("La imagen ya ha sido descargada.");
+						alertBuilder.setCancelable(false);
+						alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
 						{
 
-						}
-					});
-					AlertDialog alerta = alertBuilder.create();
-					alerta.show();
-					
+							@Override
+							public void onClick(DialogInterface dialog, int which) 
+							{
+								
+							}
+						});
+						AlertDialog alerta = alertBuilder.create();
+						alerta.show();
+						
+						
+
+					}	
 				}
 			});
 			RelativeLayout.LayoutParams paramsbutton = new RelativeLayout.LayoutParams(115,50);
@@ -248,83 +346,30 @@ public class DescargasWallpapers extends Activity
 			relLayout.addView(bDescargar);
 
 			layoutPrincipal.addView(relLayout, relParams);
-			
-			i++;
-
 		}
-			
-			
 		
-			if(pintarVerMas)
+		Button verMas = new Button(this);
+		verMas.setBackgroundColor(Color.BLACK);
+		LinearLayout.LayoutParams paramsVerMas = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+		paramsVerMas.setMargins(0, 7, 0, 0);
+		verMas.setLayoutParams(paramsVerMas);
+		verMas.setText("VER MAS");
+		verMas.setTextSize(12);
+		verMas.setTextColor(Color.WHITE);
+		verMas.setGravity(Gravity.CENTER_VERTICAL|Gravity.LEFT);
+		verMas.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) 
 			{
-				final Button verMas = new Button(this);
-				verMas.setBackgroundColor(Color.BLACK);
-				LinearLayout.LayoutParams paramsVerMas = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-				paramsVerMas.setMargins(0, 7, 0, 0);
-				verMas.setLayoutParams(paramsVerMas);
-				verMas.setText("VER MAS");
-				verMas.setTextSize(12);
-				verMas.setTextColor(Color.WHITE);
-				verMas.setGravity(Gravity.CENTER_VERTICAL|Gravity.LEFT);
-//				verMas.setPadding(5, 5, 0, 5);
-				verMas.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) 
-					{
-						verMas.setVisibility(View.GONE);
-						new DescargarThumbnails().execute(0);
-						
-					}
-				});
-				layoutPrincipal.addView(verMas);
-			}
-		
-
-			
-		
-	}
-	
-	public void pintarWallpapersRestantes()
-	{
-		LinearLayout layoutPrincipal = (LinearLayout) findViewById(R.id.linearLayoutWallpapers);
-
-		for(int i=NUM_WALLPAPERS;i<thumbnails.size();i++)
-		{
-			RelativeLayout relLayout = new RelativeLayout(this);
-			RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-			relParams.setMargins(0, 10, 0, 0);
-
-			ImageButton ib = new ImageButton(this);
-			ib.setImageBitmap(thumbnails.get(i));
-			ib.setBackgroundColor(Color.TRANSPARENT);
-			relLayout.addView(ib);
-			final Bitmap imagen = imagenes.get(i);
-			ib.setOnClickListener(new OnClickListener() 
-			{
-				
-				@Override
-				public void onClick(View v) 
+				if(numActualImagenes<numWallpapers)
 				{
-					Intent i = new Intent(DescargasWallpapers.this, DescargasImagen.class);
-					i.putExtra(IMAGEN, imagen);
-					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					View v1 = DescargasInicio.grupoDescargas.getLocalActivityManager().startActivity("", i).getDecorView();
-					DescargasInicio actividadPadre = (DescargasInicio) getParent();
-					actividadPadre.reemplazarView(v1);
+					ejecutarTareaDescargarThumbnails();
 				}
-			});
-
-			Button b = new Button(this);
-			b.setBackgroundColor(Color.TRANSPARENT);
-			b.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) 
+				else
 				{
-					MediaStore.Images.Media.insertImage(getContentResolver(), imagen, "Mini","");
 					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
-					alertBuilder.setMessage("La imagen ha sido descargada a la galeria del telefono");
+					alertBuilder.setMessage("Ha llegado al limite de imagenes.");
 					alertBuilder.setCancelable(false);
 					alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
 					{
@@ -332,24 +377,48 @@ public class DescargasWallpapers extends Activity
 						@Override
 						public void onClick(DialogInterface dialog, int which) 
 						{
-
+							
 						}
 					});
 					AlertDialog alerta = alertBuilder.create();
 					alerta.show();
-					
 				}
-			});
-			RelativeLayout.LayoutParams paramsbutton = new RelativeLayout.LayoutParams(115,50);
-			paramsbutton.setMargins(322, 245, 0, 0);
-			b.setLayoutParams(paramsbutton);
-			relLayout.addView(b);
-			
+			}
+		});
+		layoutPrincipal.addView(verMas);
 
 
-			layoutPrincipal.addView(relLayout, relParams);
-		}
+
+
+
 	}
+
+	private class DescargarImagen extends AsyncTask<String, Void, Bitmap>
+	{
+
+		private ProgressDialog progress;
+		
+		@Override
+		protected void onPreExecute() 
+		{
+			progress = ProgressDialog.show(darContexto(),"","Descargando imagen...",false);
+		}
+		
+		@Override
+		protected Bitmap doInBackground(String... params) 
+		{
+			return DescargarImagenOnline.descargarImagen(params[0]);
+		}
+		
+		@Override
+		protected void onPostExecute(Bitmap result) 
+		{
+			progress.dismiss();
+			super.onPostExecute(result);
+		}
+		
+	}
+	
 
 	public Context darContexto()
 	{
@@ -358,5 +427,15 @@ public class DescargasWallpapers extends Activity
 			context = getParent();
 		return context;
 	}
+	
+	/**
+	 * Metodo que es utilizado por metodo onclick del boton verMas para bajar mas wallpapers, es decir llamar la tarea asincronica.
+	 */
+	public void ejecutarTareaDescargarThumbnails()
+	{
+		new DescargarThumbnails(darContexto(), this, false).execute((Void)null);
+		
+	}
+
 
 }
