@@ -1,7 +1,6 @@
 package com.mini_colombia.comunidad;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,24 +9,18 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.mini_colombia.R;
 import com.mini_colombia.auxiliares.ImagenGaleria;
-import com.mini_colombia.descargas.DescargasImagen;
-import com.mini_colombia.descargas.DescargasInicio;
-import com.mini_colombia.descargas.DescargasWallpapers;
 import com.mini_colombia.parser.Parser;
 import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
