@@ -37,8 +37,10 @@
             android:id="@+id/webViewNoticia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/black"
+            android:layout_weight="0.90"
+            android:background="@android:color/white"
             android:scrollbars="none" />
+
     </LinearLayout>
 
 </LinearLayout>

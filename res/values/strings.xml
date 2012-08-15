@@ -8,7 +8,7 @@
     <string name="Autogermana">Autogermana</string>
     <string name="Separador">.......................................................</string>
     <string name="Instruccion1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</string>
-    <string name="Mini">Mini.</string>
+    <string name="Mini">MINI.</string>
     <string name="btn_ini_instrucciones">btn_ini_instrucciones</string>
     <string name="solicitar_test_drive">SOLICITAR TEST DRIVE</string>
     <string name="TEST_DRIVE">TEST DRIVE.</string>
@@ -48,9 +48,10 @@
     <string name="CONSTANTE_CARGAR_NOTICIAS_URL">http://minicolombia.herokuapp.com/noticias/darUltimasNoticias/</string>
     <string name="CONSTANTE_NOTICIAS_CATEGORIAS">http://minicolombia.herokuapp.com/noticias/darNoticiasPorCategoria/</string>
     <string name="CONSTANTE_DESCARGAS_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darUltimosWallpapers/</string>
+    <string name="CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darSiguientesWallpapers/</string>
     <string name="CONSTANTE_DESCARGAS_RINGTONES">http://minicolombia.herokuapp.com/descargas/darRingtones/</string>
     <string name="CONSTANTE_COMUNIDAD_GALERIA">http://minicolombia.herokuapp.com/comunidad/darUltimasImagenes/</string>
-    <string name="CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS">http://minicolombia.herokuapp.com/descargas/darSiguientesWallpapers/</string>
+    <string name="CONSTANTE_COMUNIDAD_GALERIA_SIGUIENTES">http://minicolombia.herokuapp.com/comunidad/darSiguientesImagenes/</string>
 
     <!-- Constantes individuales para actualizar modelo y edicion -->
     <string name="TAG_CREAR">CREATE</string>
@@ -82,17 +83,17 @@
     <string name="TAG_WALLPAPERS_THUMBNAIL">thumbnailURL</string>
     <string name="TAG_WALLPAPERS_IMAGEN">imagenURL</string>
     <string name="TAG_WALLPAPERS_NOMBRE">nombre</string>
-    <string name="TAG_WALLPAPERS_NUMERO_TOTAL">num_wallpapers</string>
     <string name="TAG_NOMBRE_ARCHIVO_RINGTONE">/Mini.mp3</string>
     <string name="TAG_RINGTONES">ringtones</string>
     <string name="TAG_NOMBRE_RINGTONES">nombre</string>
     <string name="TAG_URL_RINGTONES">archivoURL</string>
     <string name="TAG_WALLPAPERS_NUMERO">num_wallpapers</string>
 
-    <!-- Tags para la seccion de descargas -->
+    <!-- Tags para la seccion de comunidad -->
     <string name="TAG_COMUNIDAD_GALERIA_IMAGENES">imagenes</string>
     <string name="TAG_COMUNIDAD_GALERIA_NOMBRE">nombre</string>
     <string name="TAG_COMUNIDAD_GALERIA_THUMBNAIL">thumbnailURL</string>
     <string name="TAG_COMUNIDAD_GALERIA_IMAGEN">imagenURL</string>
+    <string name="TAG_COMUNIDAD_GALERIA_NUMERO">num_imagenes</string>
 
 </resources>

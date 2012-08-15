@@ -74,7 +74,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 		setContentView(R.layout.activity_descargas_wallpapers);
 		//Se pone true dado que es la primera vez que se hace fetch de los wallpapers
 		DescargarThumbnails tarea = new DescargarThumbnails(darContexto(), this, true);
-		tarea.execute((Void)null);
+		tarea.execute();
 
 		Typeface tipoMini = Typeface.createFromAsset(getAssets(), "fonts/mibd.ttf");
 		TextView titulo = (TextView)findViewById(R.id.tituloDescargasWallpapers);
@@ -92,7 +92,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	}
 
 
-	private class DescargarThumbnails extends AsyncTask<Void, Integer, ArrayList<ImagenGaleria>>
+	private class DescargarThumbnails extends AsyncTask<String, Integer, ArrayList<ImagenGaleria>>
 	{
 
 		private ProgressDialog progress;
@@ -123,7 +123,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 		/**
 		 * Metodo que descarga tanto 
 		 */
-		protected ArrayList<ImagenGaleria> doInBackground(Void... params)
+		protected ArrayList<ImagenGaleria> doInBackground(String... params)
 		{
 
 			Parser jparser = new Parser();
@@ -134,7 +134,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_WALLPAPERS));
 				try 
 				{
-					numWallpapers = Integer.parseInt(jsonObject.getString(getString(R.string.TAG_WALLPAPERS_NUMERO_TOTAL)));
+					numWallpapers = Integer.parseInt(jsonObject.getString(getString(R.string.TAG_WALLPAPERS_NUMERO)));
 				} 
 				catch (NumberFormatException e) 
 				{
@@ -148,6 +148,8 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 				}
 			}
 
+			
+			
 			else
 				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS)+params[0]);
 
@@ -433,7 +435,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	 */
 	public void ejecutarTareaDescargarThumbnails()
 	{
-		new DescargarThumbnails(darContexto(), this, false).execute((Void)null);
+		new DescargarThumbnails(darContexto(), this, false).execute(""+numWallpapers);
 		
 	}
 

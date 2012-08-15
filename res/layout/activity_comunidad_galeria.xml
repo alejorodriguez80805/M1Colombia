@@ -32,10 +32,23 @@
             android:id="@+id/gridGaleria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.23"
+            android:fadingEdge="vertical|none"
             android:horizontalSpacing="15dip"
             android:listSelector="@android:color/transparent"
             android:numColumns="2" >
         </GridView>
+
+        <Button
+            android:id="@+id/comunidadGaleriaBoton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:gravity="center_vertical|center_horizontal|left"
+            android:onClick="verMas"
+            android:text="VER MAS FOTOS"
+            android:textColor="#D0D0D0" />
+
     </LinearLayout>
 
 </LinearLayout>

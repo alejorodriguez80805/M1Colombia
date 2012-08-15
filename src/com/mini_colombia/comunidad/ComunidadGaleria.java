@@ -7,15 +7,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -31,7 +32,9 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 
 	private ArrayList<ImagenGaleria> arregloImagenes;
 	private ArrayList<String> imagenes;
-	ProgressDialog progress;
+	private int numImagenes;
+	private int numActualImagenes;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -45,7 +48,12 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 		titulo.setText("GALERIA.");
 		titulo.setTypeface(tipoMini);
 		String url = getString(R.string.CONSTANTE_COMUNIDAD_GALERIA);
-		inicializarTareaAsincrona(url);
+		inicializarTareaAsincrona();
+
+		Button verMas = (Button) findViewById(R.id.comunidadGaleriaBoton);
+		verMas.setTypeface(tipoMini);
+		numActualImagenes = 0;
+		arregloImagenes = new ArrayList<ImagenGaleria>();
 
 	}
 
@@ -66,11 +74,15 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 
 		private ProgressDialog progress;
 
-		public DescargarInformacion(Context context, AsyncTaskListener<ArrayList<ImagenGaleria>> callback)
+		private boolean primeraVez;
+
+		public DescargarInformacion(Context context, AsyncTaskListener<ArrayList<ImagenGaleria>> callback, boolean primeraVez)
 		{
 			this.context = context;
 
 			this.callback = callback;
+
+			this.primeraVez = primeraVez;
 		}
 
 		@Override
@@ -83,10 +95,31 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 		protected ArrayList<ImagenGaleria> doInBackground(String... params) 
 		{
 			arreglo = new ArrayList<ImagenGaleria>();
-
-			String url = params[0];
 			Parser jparser = new Parser();
-			JSONObject jsonObject = jparser.getJSONFromUrl(url);
+			JSONObject jsonObject;
+			if(primeraVez)
+			{
+				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_COMUNIDAD_GALERIA));
+				try 
+				{
+					numImagenes = Integer.parseInt(jsonObject.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_NUMERO)));
+				} 
+				catch (NumberFormatException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				catch (JSONException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			else
+				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_COMUNIDAD_GALERIA_SIGUIENTES)+ params[0]);
+
+
 			try 
 			{
 				JSONArray imagenes = jsonObject.getJSONArray(getString(R.string.TAG_COMUNIDAD_GALERIA_IMAGENES));
@@ -99,8 +132,6 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 					String thumbnailURL = imagen.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_THUMBNAIL));
 					Bitmap imagenThumbnail = DescargarImagenOnline.descargarImagen(thumbnailURL);
 					String imagenURL = imagen.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_IMAGEN));
-//					Bitmap bImagen = DescargarImagenOnline.descargarImagen(imagenURL);
-
 					ImagenGaleria j = new ImagenGaleria(nombre, imagenThumbnail, imagenURL);
 					arreglo.add(j);
 
@@ -137,49 +168,53 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 	@Override
 	public void onTaskComplete(ArrayList<ImagenGaleria> result) 
 	{
-		arregloImagenes = result;
-		ArrayList<String> imagenes = new ArrayList<String>();
-//		for(int i=0; i<arregloImagenes.size(); i ++)
-//		{
-//			imagenes.add(arregloImagenes.get(i).getThumbnail());
-//		}
-
+		numActualImagenes+=2;
+		arregloImagenes.addAll(result);
 		final GridView grid = (GridView) findViewById(R.id.gridGaleria);
 
 		grid.setAdapter(new ImageAdapter(this, arregloImagenes, darPadre()));
-		grid.setOnItemClickListener(new OnItemClickListener() 
-		{
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View v, int position, long id) 
-			{
-
-//				ImagenGaleria imagen = arregloImagenes.get(position); 
-//
-//				Intent i = new Intent(ComunidadGaleria.this, ComunidadImagen.class);
-//				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				i.putExtra("size", arregloImagenes.size());
-//				i.putExtra("posActual", position +1);
-//				i.putExtra("titulo", imagen.getNombre());
-//				i.putExtra("url", imagen.getImagen());
-//				View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i).getDecorView();
-//				ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-//				actividadPadre.reemplazarView(v1);
-
-			}
-
-		});
 	}
 
-	public void inicializarTareaAsincrona (String url)
+	public void inicializarTareaAsincrona ()
 	{
-		DescargarInformacion tarea = new DescargarInformacion(darContexto(),this);
-		tarea.execute(url);
+		DescargarInformacion tarea = new DescargarInformacion(darContexto(),this, true);
+		tarea.execute();
 	}
-	
+
 	public Activity darPadre()
 	{
 		return getParent();
+	}
+
+	public void verMas(View v)
+	{
+		int a = numActualImagenes;
+		int b = numImagenes;
+		
+		if(numActualImagenes<numImagenes)
+		{
+			DescargarInformacion tarea = new DescargarInformacion(darContexto(),this, false);
+			tarea.execute(""+numActualImagenes);
+		}
+		else
+		{
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+			alertBuilder.setMessage("Ha llegado al limite de imagenes.");
+			alertBuilder.setCancelable(false);
+			alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+			{
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) 
+				{
+					
+				}
+			});
+			AlertDialog alerta = alertBuilder.create();
+			alerta.show();
+		}
+
 	}
 
 

@@ -83,7 +83,7 @@ public class NoticiasNoticia extends Activity
 
 			else
 				wv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ONLY);
-			
+
 			wv.loadUrl(url);
 			
 		}
