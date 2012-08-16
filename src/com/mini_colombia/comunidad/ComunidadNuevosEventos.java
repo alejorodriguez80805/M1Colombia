@@ -84,6 +84,7 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					String p = evento.getString(getString(R.string.TAG_COMUNIDAD_EVENTOS_POSICION));
 					String titulo = evento.getString(getString(R.string.TAG_COMUNIDAD_EVENTOS_TITULO));
 					String thumbnailURL = evento.getString(getString(R.string.TAG_COMUNIDAD_EVENTOS_THUMBNAIL_URL));
+					String templateColor = evento.getString(getString(R.string.TAG_COMUNIDAD_EVENTOS_TEMPLATE_COLOR));
 					Bitmap thumbnailPreliminar = DescargarImagenOnline.descargarImagen(thumbnailURL);
 
 					String posicion = p.split("-")[1];
@@ -108,7 +109,7 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 						imagenes1.add(imagen);
 					}
 
-					Evento e = new Evento(subtitulo, contenido, fecha, template, posicion, titulo, thumbnail,imagenes1);
+					Evento e = new Evento(subtitulo, contenido, fecha, template, posicion, titulo, thumbnail,imagenes1, templateColor);
 					this.eventos.add(e);
 				}
 			} 
@@ -157,7 +158,7 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 							break;
 
 						case 2:
-
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
 							break;
 
 						case 3:

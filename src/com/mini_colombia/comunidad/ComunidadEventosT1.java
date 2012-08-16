@@ -1,25 +1,26 @@
 package com.mini_colombia.comunidad;
 
-import java.util.ArrayList;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mini_colombia.R;
 import com.mini_colombia.auxiliares.Evento;
 import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.Resize;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Event;
-import android.webkit.WebView;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ComunidadEventosT1 extends Activity implements AsyncTaskListener<Bitmap>
 {
@@ -41,6 +42,11 @@ public class ComunidadEventosT1 extends Activity implements AsyncTaskListener<Bi
 		String tituloImagen = e.getTitulo();
 		TextView tTituloImagen = (TextView)findViewById(R.id.tituloImagenT1);
 		tTituloImagen.setText(tituloImagen);
+		
+		LinearLayout layoutFondoTitulo =(LinearLayout) findViewById(R.id.linearFondoTituloT1);
+		String[] rgbFondo =e.getTemplateColor().split(",");
+		layoutFondoTitulo.setBackgroundColor(Color.rgb(Integer.parseInt(rgbFondo[0]), Integer.parseInt(rgbFondo[1]), Integer.parseInt(rgbFondo[2])));
+		
 		
 		String urlImagen = e.getUrlImagenes().get(0);
 		DescargarImagen tarea = new DescargarImagen(darContexto(), this);
@@ -104,6 +110,24 @@ public class ComunidadEventosT1 extends Activity implements AsyncTaskListener<Bi
 		if (getParent() != null) 
 			context = getParent();
 		return context;
+	}
+	
+	public void abrirFacebook(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MINI"));
+		startActivity(i);
+	}
+
+	public void abrirTwitter(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/MINI"));
+		startActivity(i);
+	}
+	
+	@Override
+	public void onBackPressed() 
+	{
+		getParent().onBackPressed();
 	}
 
 }

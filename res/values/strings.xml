@@ -106,6 +106,7 @@
     <string name="TAG_COMUNIDAD_EVENTOS_TITULO">titulo</string>
     <string name="TAG_COMUNIDAD_EVENTOS_THUMBNAIL_URL">thumbnailURL</string>
     <string name="TAG_COMUNIDAD_EVENTOS_IMAGENES">imagenes</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_TEMPLATE_COLOR">template_color</string>
     <string name="TAG_COMUNIDAD_EVENTOS">eventos</string>
 
 </resources>

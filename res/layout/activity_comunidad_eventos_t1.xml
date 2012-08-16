@@ -24,7 +24,7 @@
         android:paddingLeft="7dp"
         android:text="COMUNIDAD."
         android:textColor="#D0D0D0" />
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -33,21 +33,21 @@
         android:layout_marginTop="5dip"
         android:layout_weight="0.5"
         android:orientation="vertical" >
-
+
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/linearFondoTituloT1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#e21b14"
                     android:orientation="vertical" >
 
                     <TextView
@@ -66,7 +66,9 @@
                 <ImageView
                     android:id="@+id/imagenT1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dip"
+                    android:layout_marginBottom="7dip" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -86,21 +88,21 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:background="@android:color/transparent"
+                        android:onClick="abrirTwitter"
                         android:src="@drawable/twitter" />
 
                     <ImageButton
                         android:id="@+id/imageButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="7dip"
+                        android:layout_marginRight="10dip"
                         android:layout_toLeftOf="@id/eventosT1Twitter"
                         android:background="@android:color/transparent"
+                        android:onClick="abrirFacebook"
                         android:src="@drawable/facebook" />
                 </RelativeLayout>
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
 
 </LinearLayout>

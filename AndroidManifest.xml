@@ -82,6 +82,10 @@
             android:name=".comunidad.ComunidadEventosT1"
             android:screenOrientation="portrait"
             android:theme="@style/noTitle" />
+        <activity
+            android:name=".comunidad.ComunidadEventosT2"
+            android:screenOrientation="portrait"
+            android:theme="@style/noTitle" />
 
         <!-- Declaracion de las actividades de la seccion noticias -->
         <activity

@@ -28,7 +28,9 @@ public class Evento implements Serializable
 	
 	private ArrayList<String> urlImagenes;
 	
-	public Evento(String subtitulo, String contenido, String fecha, String template, String posicion, String titulo, Bitmap thumbnailURL, ArrayList<String> urlImagenes)
+	private String templateColor;
+	
+	public Evento(String subtitulo, String contenido, String fecha, String template, String posicion, String titulo, Bitmap thumbnailURL, ArrayList<String> urlImagenes, String templateColor)
 	{
 		this.subtitulo = subtitulo;
 		this.contenido = contenido;
@@ -38,6 +40,15 @@ public class Evento implements Serializable
 		this.titulo = titulo;
 		this.thumbnailURL = thumbnailURL;
 		this.urlImagenes = urlImagenes;
+		this.templateColor = templateColor;
+	}
+
+	public String getTemplateColor() {
+		return templateColor;
+	}
+
+	public void setTemplateColor(String templateColor) {
+		this.templateColor = templateColor;
 	}
 
 	public String getSubtitulo() {
