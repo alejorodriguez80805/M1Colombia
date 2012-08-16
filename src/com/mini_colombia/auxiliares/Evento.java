@@ -1,11 +1,17 @@
 package com.mini_colombia.auxiliares;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 
-public class Evento 
+public class Evento implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String subtitulo;
 	
 	private String contenido;

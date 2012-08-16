@@ -2,8 +2,6 @@ package com.mini_colombia.comunidad;
 
 import java.util.ArrayList;
 
-import javax.crypto.spec.PSource;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +15,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.Resize;
 
-public class ComunidadNuevosEventos extends Activity implements AsyncTaskListener<ArrayList<Evento>>
+public class ComunidadNuevosEventos extends Activity implements AsyncTaskListener<ArrayList<Evento>>, OnClickListener
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -135,70 +134,107 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 	{
 		for(int i=0;i<result.size();i++)
 		{
-			Evento evento = result.get(i);
+			final Evento evento = result.get(i);
 			String posicion = evento.getPosicion();
-			
+			final int template = Integer.parseInt(""+evento.getTemplate().charAt(1));
+
 			if(posicion.equals("1"))
 			{
 				ImageButton b1 = (ImageButton) findViewById(R.id.eventosButton1);
 				b1.setImageBitmap(evento.getThumbnailURL());
-				Intent i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
-				i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				i1.putExtra("tituloEvento", evento.getTitulo());
-				i1.putExtra("contenido", evento.getContenido());
-				View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-				ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-				actividadPadre.reemplazarView(v1);
+				b1.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+
+							break;
+
+						case 3:
+
+							break;
+
+						case 4:
+
+							break;
+
+						case 5:
+
+							break;
+						}
+
+						
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}
+				});
+
 			}
 			else if(posicion.equals("2"))
 			{
 				ImageButton b2 = (ImageButton) findViewById(R.id.eventosButton2);
 				b2.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else if(posicion.equals("3"))
 			{
 				ImageButton b3 = (ImageButton) findViewById(R.id.eventosButton3);
 				b3.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else if(posicion.equals("4"))
 			{
 				ImageButton b4 = (ImageButton) findViewById(R.id.eventosButton4);
 				b4.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else if(posicion.equals("5"))
 			{
 				ImageButton b5 = (ImageButton) findViewById(R.id.eventosButton5);
 				b5.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else if (posicion.equals("6")) 
 			{
 				ImageButton b6 = (ImageButton) findViewById(R.id.eventosButton6);
 				b6.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else if(posicion.equals("7"))
 			{
 				ImageButton b7 = (ImageButton) findViewById(R.id.eventosButton7);
 				b7.setImageBitmap(evento.getThumbnailURL());
 			}
-			
+
 			else
 			{
 				ImageButton b8 = (ImageButton) findViewById(R.id.eventosButton8);
 				b8.setImageBitmap(evento.getThumbnailURL());
 			}
-			
-		
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
 		}
 	}
 
@@ -209,5 +245,12 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 		if (getParent() != null) 
 			context = getParent();
 		return context;
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+
 	}
 }

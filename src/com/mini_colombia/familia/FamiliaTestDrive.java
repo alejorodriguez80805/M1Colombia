@@ -76,20 +76,6 @@ public class FamiliaTestDrive extends Activity
 			actividadPadre.reemplazarView(v1);
 
 		}
-		//		MailClient sender = new MailClient("alejorodriguez80805","alejo1234");
-		//		try 
-		//		{
-		//			sender.sendMail("Test Drive " , "afadfasdfasdfasdfadf", "alejorodriguez80805@gmail.com", "alejo80805@hotmail.com");
-		//		} 
-		//		catch (Exception e) 
-		//		{
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
-
-
-
-
 	}
 
 
