@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:inputType="textCapWords"
+                        android:inputType="textFilter"
                         android:textColor="#D0D0D0"
                         android:textSize="15sp" >
                     </EditText>
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:inputType="textCapWords"
+                        android:inputType="textFilter"
                         android:textColor="#D0D0D0"
                         android:textSize="15sp" >
                     </EditText>
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textFilter"
                         android:textColor="#D0D0D0"
                         android:textSize="15sp" >
                     </EditText>
@@ -222,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
-                        android:inputType="textCapWords"
+                        android:inputType="textFilter"
                         android:textColor="#D0D0D0"
                         android:textSize="15sp" >
                     </EditText>

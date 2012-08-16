@@ -52,6 +52,7 @@
     <string name="CONSTANTE_DESCARGAS_RINGTONES">http://minicolombia.herokuapp.com/descargas/darRingtones/</string>
     <string name="CONSTANTE_COMUNIDAD_GALERIA">http://minicolombia.herokuapp.com/comunidad/darUltimasImagenes/</string>
     <string name="CONSTANTE_COMUNIDAD_GALERIA_SIGUIENTES">http://minicolombia.herokuapp.com/comunidad/darSiguientesImagenes/</string>
+    <string name="CONSTANTE_COMUNIDAD_DAR_EVENTOS">http://minicolombia.herokuapp.com/comunidad/darNuevosEventos/</string>
 
     <!-- Constantes individuales para actualizar modelo y edicion -->
     <string name="TAG_CREAR">CREATE</string>
@@ -90,10 +91,21 @@
     <string name="TAG_WALLPAPERS_NUMERO">num_wallpapers</string>
 
     <!-- Tags para la seccion de comunidad -->
+    <!-- Tags para la seccion de galeria -->
     <string name="TAG_COMUNIDAD_GALERIA_IMAGENES">imagenes</string>
     <string name="TAG_COMUNIDAD_GALERIA_NOMBRE">nombre</string>
     <string name="TAG_COMUNIDAD_GALERIA_THUMBNAIL">thumbnailURL</string>
     <string name="TAG_COMUNIDAD_GALERIA_IMAGEN">imagenURL</string>
     <string name="TAG_COMUNIDAD_GALERIA_NUMERO">num_imagenes</string>
+    <!-- Tags para la seccion de eventos -->
+    <string name="TAG_COMUNIDAD_EVENTOS_SUBTITULO">subtitulo</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_CONTENIDO">contenido</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_FECHA">fecha</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_TEMPLATE">template</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_POSICION">posicion</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_TITULO">titulo</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_THUMBNAIL_URL">thumbnailURL</string>
+    <string name="TAG_COMUNIDAD_EVENTOS_IMAGENES">imagenes</string>
+    <string name="TAG_COMUNIDAD_EVENTOS">eventos</string>
 
 </resources>

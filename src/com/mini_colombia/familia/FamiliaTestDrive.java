@@ -52,21 +52,44 @@ public class FamiliaTestDrive extends Activity
 		EditText textoCiudad= (EditText)findViewById(R.id.testDrive_ciudad);
 		EditText textoCarro= (EditText)findViewById(R.id.testDrive_carro);
 
-		MailClient sender = new MailClient("alejorodriguez80805","alejo1234");
-		try 
+		if(textoNombre.toString()!="" && textoApellido.toString() !="" && textoMail.toString()!="" && textoTelefono.toString() !="" && textoCiudad.toString() !="")
 		{
-			sender.sendMail("Test Drive " , "afadfasdfasdfasdfadf", "alejorodriguez80805@gmail.com", "alejo80805@hotmail.com");
-		} 
-		catch (Exception e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+			/* Fill it with Data */
+			emailIntent.setType("plain/text");
+			emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"alejo80805@hotmail.com"});
+			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "TEST DRIVE " + textoCarro.getText());
+			String texto = "Nombre: " + textoNombre.getText() +"\n" +
+					"Apellido: " + textoApellido.getText() + "\n"+
+					"Mail: " + textoMail.getText() + "\n"+
+					"Telefono: " + textoTelefono.getText() + "\n"+
+					"Ciudad: " + textoCiudad.getText() + "\n";
+			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, texto);
+
+			/* Send it off to the Activity-Chooser */
+			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+			
+			Intent i = new Intent(FamiliaTestDrive.this, FamiliaSolicitud.class);
+			View v1 = FamiliaInicio.grupoFamilia.getLocalActivityManager().startActivity("", i).getDecorView();
+			FamiliaInicio actividadPadre =(FamiliaInicio) getParent(); 
+			actividadPadre.reemplazarView(v1);
+
 		}
-		
-		Intent i = new Intent(FamiliaTestDrive.this, FamiliaSolicitud.class);
-		View v1 = FamiliaInicio.grupoFamilia.getLocalActivityManager().startActivity("", i).getDecorView();
-		FamiliaInicio actividadPadre =(FamiliaInicio) getParent(); 
-		actividadPadre.reemplazarView(v1);
+		//		MailClient sender = new MailClient("alejorodriguez80805","alejo1234");
+		//		try 
+		//		{
+		//			sender.sendMail("Test Drive " , "afadfasdfasdfasdfadf", "alejorodriguez80805@gmail.com", "alejo80805@hotmail.com");
+		//		} 
+		//		catch (Exception e) 
+		//		{
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
+
+
+
+
 	}
 
 

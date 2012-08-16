@@ -51,7 +51,10 @@ public class ComunidadInicio extends ActivityGroup
 	
 	public void iniciarEventos(View v)
 	{
-		
+		Intent i = new Intent(ComunidadInicio.this, ComunidadNuevosEventos.class);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		View v1 = getLocalActivityManager().startActivity("", i).getDecorView();
+		reemplazarView(v1);
 	}
 	
 	public void iniciarGaleria(View v)
