@@ -162,19 +162,19 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 							break;
 
 						case 3:
-
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
 							break;
 
 						case 4:
-
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
 							break;
 
 						case 5:
-
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
 							break;
 						}
 
-						
+
 						Bundle bundle = new Bundle();
 						bundle.putSerializable("objeto", evento);
 						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -197,6 +197,48 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 			{
 				ImageButton b3 = (ImageButton) findViewById(R.id.eventosButton3);
 				b3.setImageBitmap(evento.getThumbnailURL());
+				b3.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+						
+					}
+				});
 			}
 
 			else if(posicion.equals("4"))
