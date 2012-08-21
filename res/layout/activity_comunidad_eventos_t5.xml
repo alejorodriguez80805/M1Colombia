@@ -78,6 +78,7 @@
                         android:isScrollContainer="true"
                         android:scrollbars="vertical" />
 
+
                     <ImageView
                         android:id="@+id/imagenT51"
                         android:layout_width="match_parent"

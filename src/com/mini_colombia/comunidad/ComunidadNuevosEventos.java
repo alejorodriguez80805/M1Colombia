@@ -90,13 +90,13 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					String posicion = p.split("-")[1];
 					Bitmap thumbnail = null;
 					if(posicion.equals("1") || posicion.equals("2") || posicion.equals("3"))
-						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 178, 150);
+						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 178, 145);
 					else if(posicion.equals("4"))
-						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 223, 451);
+						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 223, 452);
 					else if(posicion.equals("5"))
 						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 185, 270);
 					else if(posicion.equals("6"))
-						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 229, 180);
+						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 185, 180);
 					else if(posicion.equals("7") || posicion.equals("8"))
 						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 154, 225);
 
@@ -191,14 +191,8 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 			{
 				ImageButton b2 = (ImageButton) findViewById(R.id.eventosButton2);
 				b2.setImageBitmap(evento.getThumbnailURL());
-			}
-
-			else if(posicion.equals("3"))
-			{
-				ImageButton b3 = (ImageButton) findViewById(R.id.eventosButton3);
-				b3.setImageBitmap(evento.getThumbnailURL());
-				b3.setOnClickListener(new OnClickListener() {
-					
+				b2.setOnClickListener(new OnClickListener() 
+				{
 					@Override
 					public void onClick(View arg0) 
 					{
@@ -236,7 +230,56 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
 						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
 						actividadPadre.reemplazarView(v1);
-						
+
+					}
+
+				});
+			}
+
+			else if(posicion.equals("3"))
+			{
+				ImageButton b3 = (ImageButton) findViewById(R.id.eventosButton3);
+				b3.setImageBitmap(evento.getThumbnailURL());
+				b3.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
 					}
 				});
 			}
@@ -245,30 +288,244 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 			{
 				ImageButton b4 = (ImageButton) findViewById(R.id.eventosButton4);
 				b4.setImageBitmap(evento.getThumbnailURL());
+				b4.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}
+
+				});
 			}
 
 			else if(posicion.equals("5"))
 			{
 				ImageButton b5 = (ImageButton) findViewById(R.id.eventosButton5);
 				b5.setImageBitmap(evento.getThumbnailURL());
+				b5.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}
+
+				});
 			}
 
 			else if (posicion.equals("6")) 
 			{
 				ImageButton b6 = (ImageButton) findViewById(R.id.eventosButton6);
 				b6.setImageBitmap(evento.getThumbnailURL());
+				b6.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}
+
+				});
 			}
 
 			else if(posicion.equals("7"))
 			{
 				ImageButton b7 = (ImageButton) findViewById(R.id.eventosButton7);
 				b7.setImageBitmap(evento.getThumbnailURL());
+				b7.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}
+				});
 			}
 
 			else
 			{
 				ImageButton b8 = (ImageButton) findViewById(R.id.eventosButton8);
 				b8.setImageBitmap(evento.getThumbnailURL());
+				b8.setOnClickListener(new OnClickListener() 
+				{
+					@Override
+					public void onClick(View arg0) 
+					{
+						Intent i1 = null;
+
+						switch (template) 
+						{
+						case 1:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+
+							break;
+
+						case 2:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+							break;
+
+						case 3:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+							break;
+
+						case 4:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+							break;
+
+						case 5:
+							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+							break;
+						}
+
+
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", evento);
+						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						i1.putExtras(bundle);
+						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+						actividadPadre.reemplazarView(v1);
+
+					}	
+
+				});
 			}
 
 

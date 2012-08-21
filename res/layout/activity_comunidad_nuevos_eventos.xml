@@ -43,7 +43,8 @@
                 android:id="@+id/eventosFila1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dip" >
+                android:layout_marginTop="7dip"
+                android:layout_marginBottom="7dip" >
 
                 <ImageButton
                     android:id="@+id/eventosButton1"
@@ -68,12 +69,14 @@
                 android:id="@+id/eventosButton4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:layout_marginBottom="7dip" />
 
             <LinearLayout
                 android:id="@+id/eventosFila3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dip" >
 
                 <ImageButton
                     android:id="@+id/eventosButton5"

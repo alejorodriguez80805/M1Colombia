@@ -11,11 +11,20 @@ import com.mini_colombia.servicios.Resize;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -111,10 +120,11 @@ public class ComunidadEventosT5 extends Activity implements AsyncTaskListener<Ar
 		ImageView imagen2 = (ImageView) findViewById(R.id.imagenT52);
 		imagen2.setImageBitmap(result.get(0));
 		
-		
+
 		
 		WebView wv = (WebView) findViewById(R.id.webViewT5);
 		wv.loadData(contenido, "text/html", "charset=UTF-8");
+		
 		
 	}
 	
@@ -124,6 +134,18 @@ public class ComunidadEventosT5 extends Activity implements AsyncTaskListener<Ar
 		if (getParent() != null) 
 			context = getParent();
 		return context;
+	}
+	
+	public void abrirFacebook(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MINI"));
+		startActivity(i);
+	}
+
+	public void abrirTwitter(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/MINI"));
+		startActivity(i);
 	}
 
 

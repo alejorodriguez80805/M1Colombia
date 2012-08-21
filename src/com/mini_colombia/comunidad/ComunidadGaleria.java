@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.SyncStateContract.Constants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -34,6 +35,8 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 	private ArrayList<String> imagenes;
 	private int numImagenes;
 	private int numActualImagenes;
+	private static final int AVANCE_IMAGENES =4;
+	
 
 
 	@Override
@@ -168,7 +171,7 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 	@Override
 	public void onTaskComplete(ArrayList<ImagenGaleria> result) 
 	{
-		numActualImagenes+=2;
+		numActualImagenes+=AVANCE_IMAGENES;
 		arregloImagenes.addAll(result);
 		final GridView grid = (GridView) findViewById(R.id.gridGaleria);
 

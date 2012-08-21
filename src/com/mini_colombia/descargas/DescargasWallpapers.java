@@ -45,9 +45,7 @@ import com.mini_colombia.servicios.Resize;
 public class DescargasWallpapers extends Activity implements AsyncTaskListener<ArrayList<ImagenGaleria>>
 {
 
-	private static final int NUM_WALLPAPERS=1;
 
-	private static final String IMAGEN="imagen";
 	
 	private static final String NOMBRE_CARPETA = "MINI";
 
@@ -55,7 +53,8 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	
 	private static final String EXTENSION = ".jpg";
 	
-	private Bitmap imagen;
+	private static final int AVANCE_IMAGENES = 3;
+
 	
 	private int numActualImagenes;
 	
@@ -204,7 +203,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 
 	public void onTaskComplete(ArrayList<ImagenGaleria> result)
 	{
-		numActualImagenes+=3;
+		numActualImagenes+=AVANCE_IMAGENES;
 		
 		LinearLayout layoutPrincipal = (LinearLayout) findViewById(R.id.linearLayoutWallpapers);
 		

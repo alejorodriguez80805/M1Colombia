@@ -40,6 +40,7 @@ public class ComunidadEventosT3 extends Activity implements AsyncTaskListener<Bi
 
 		String[] rgbFondo =e.getTemplateColor().split(",");
 		String tituloImagen = e.getTitulo();
+		String subtitulo = e.getSubtitulo();
 		TextView tTituloImagen = (TextView)findViewById(R.id.tituloImagenT3);
 		tTituloImagen.setTextColor(Color.rgb(Integer.parseInt(rgbFondo[0]), Integer.parseInt(rgbFondo[1]), Integer.parseInt(rgbFondo[2])));
 		TextView tTitulo2Imagen = (TextView) findViewById(R.id.titulo2ImagenT3);
@@ -47,7 +48,7 @@ public class ComunidadEventosT3 extends Activity implements AsyncTaskListener<Bi
 		tTituloImagen.setTypeface(tipoMini);
 		tTitulo2Imagen.setTypeface(tipoMini);  
 		tTituloImagen.setText(tituloImagen);
-		tTitulo2Imagen.setText(tituloImagen);
+		tTitulo2Imagen.setText(subtitulo);
 
 		contenido = e.getContenido();
 

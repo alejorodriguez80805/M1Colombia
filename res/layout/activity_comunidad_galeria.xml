@@ -32,7 +32,7 @@
             android:id="@+id/gridGaleria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.23"
+            android:layout_weight="0.19"
             android:fadingEdge="vertical|none"
             android:horizontalSpacing="15dip"
             android:listSelector="@android:color/transparent"
