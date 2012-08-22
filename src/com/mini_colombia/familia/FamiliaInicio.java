@@ -2,13 +2,20 @@ package com.mini_colombia.familia;
 
 
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActivityGroup;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -24,20 +31,21 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.mini_colombia.R;
 import com.mini_colombia.db.DataBaseHelper;
+import com.mini_colombia.parser.Parser;
 import com.mini_colombia.servicios.ObtenerImagen;
 import com.mini_colombia.servicios.Resize;
 import com.mini_colombia.values.Modelo;
 
-public class FamiliaInicio  extends ActivityGroup implements OnClickListener
+public class FamiliaInicio  extends ActivityGroup 
 {
 	private static final String MODELO = "modelo";
 
 	private DataBaseHelper databaseHelper = null;
 
 	private Dao<Modelo, String> daoModelo;
-	
+
 	public static FamiliaInicio grupoFamilia;
-	
+
 	public ArrayList<View> historialViews;
 
 	@Override
@@ -60,72 +68,121 @@ public class FamiliaInicio  extends ActivityGroup implements OnClickListener
 		LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutFamilia);
 		daoModelo = darDaoModelo();
 
+		AssetManager am = getAssets();
 		try 
 		{
-			List<Modelo> modelos = daoModelo.queryForAll();
-			Modelo m;
-			for(int i = 0; i<modelos.size(); i ++)
+			InputStream is = am.open("familia/modelos.xml");
+			Parser parser = new Parser();
+			JSONObject objeto = parser.getJsonFromInputStream(is);
+			try 
 			{
-				m = modelos.get(i);
-				ImageButton ib = new ImageButton(this);
-				LayoutParams parametros = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				String nombreImagen = m.getThumbnail();
+				JSONArray modelos = objeto.getJSONArray(getString(R.string.TAG_MODELO));
+				for(int i=0;i<modelos.length(); i++)
+				{
 
-
-					Bitmap bitmap = ObtenerImagen.darImagen(nombreImagen, getApplicationContext());
-					Bitmap bitmapEscala= Resize.resizeBitmap(bitmap, 195, 451);
+					final int j = i;
+					JSONObject modelo = modelos.getJSONObject(i);
+					ImageButton ib = new ImageButton(this);
+					LayoutParams parametros = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+					String thumbnail = modelo.getString(getString(R.string.TAG_THUMBNAIL_MODELO));
 					ib.setLayoutParams(parametros);
-					ib.setImageBitmap(bitmapEscala);
+					ib.setImageResource(getResources().getIdentifier(thumbnail,"drawable",getApplicationContext().getPackageName()));
 					ib.setBackgroundColor(Color.BLACK);
-					ib.setOnClickListener(this);
-					ib.setId(i);
+					ib.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View arg0) 
+						{
+							Intent i = new Intent(FamiliaInicio.this, FamiliaModelos.class);
+							i.putExtra(MODELO, j);
+							i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							View v1 = getLocalActivityManager().startActivity("", i).getDecorView();
+							reemplazarView(v1);
+							
+						}
+					});
 					layout.addView(ib);
-
-
+				}
+			} 
+			catch (JSONException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+
 		} 
-		catch (SQLException e) 
+		catch (IOException e1) 
 		{
-			e.printStackTrace();
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+
+		//		try 
+		//		{
+		//			List<Modelo> modelos = daoModelo.queryForAll();
+		//			Modelo m;
+		//			for(int i = 0; i<modelos.size(); i ++)
+		//			{
+		//				m = modelos.get(i);
+		//				ImageButton ib = new ImageButton(this);
+		//				LayoutParams parametros = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		//				String nombreImagen = m.getThumbnail();
+		//
+		//
+		//					Bitmap bitmap = ObtenerImagen.darImagen(nombreImagen, getApplicationContext());
+		//					Bitmap bitmapEscala= Resize.resizeBitmap(bitmap, 195, 451);
+		//					ib.setLayoutParams(parametros);
+		//					ib.setImageBitmap(bitmapEscala);
+		//					ib.setBackgroundColor(Color.BLACK);
+		//					ib.setOnClickListener(this);
+		//					ib.setId(i);
+		//					layout.addView(ib);
+		//
+		//
+		//			}
+		//		} 
+		//		catch (SQLException e) 
+		//		{
+		//			e.printStackTrace();
+		//		}
 	}
 
 
-	
 
-	
+
+
 	@Override
 	public void onBackPressed() 
 	{
 		FamiliaInicio.grupoFamilia.back();
 		return;
 	}
-	
 
 
-	@Override
-	public void onClick(View v) 
-	{
-		String id = String.valueOf(v.getId());
-		Intent i = new Intent(FamiliaInicio.this, FamiliaModelos.class);
-		i.putExtra(MODELO, id);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		reemplazarView("1", i);
-		View v1 = getLocalActivityManager().startActivity("", i).getDecorView();
-		reemplazarView(v1);
-	}
-	
+
+//	@Override
+//	public void onClick(View v) 
+//	{
+//		String id = String.valueOf(v.getId());
+//		Intent i = new Intent(FamiliaInicio.this, FamiliaModelos.class);
+//		i.putExtra(MODELO, id);
+//		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		//		reemplazarView("1", i);
+//		View v1 = getLocalActivityManager().startActivity("", i).getDecorView();
+//		reemplazarView(v1);
+//	}
+
 	public void reemplazarView(View v)
 	{
 		historialViews.add(v);
 		setContentView(v);
 	}
-	
+
 	public void back()
 	{
 		if(historialViews.size()>0)
 		{
-			
+
 			historialViews.remove(historialViews.size() -1);
 			if(historialViews.size()>0)
 			{
@@ -187,12 +244,12 @@ public class FamiliaInicio  extends ActivityGroup implements OnClickListener
 		return daoModelo;
 
 	}
-	
+
 	public Context darContexto()
 	{
 		return this;
 	}
-	
+
 
 
 }

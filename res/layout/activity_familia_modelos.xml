@@ -41,7 +41,7 @@
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollModelos"
                 style="@style/noBar"
-                android:layout_width="153dp"
+                android:layout_width="153dip"
                 android:layout_height="wrap_content"
                 android:isScrollContainer="true" >
             </HorizontalScrollView>
@@ -49,15 +49,14 @@
             <ScrollView
                 android:id="@+id/scrollView2"
                 style="@style/noBar"
-                android:layout_width="150dp"
+                android:layout_width="150dip"
                 android:layout_height="wrap_content"
                 android:scrollbars="none" >
 
                 <LinearLayout
                     android:id="@+id/layoutDerModelos"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dip"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/toolbar_subtitle"
                     android:orientation="vertical" >
                 </LinearLayout>
             </ScrollView>
