@@ -36,7 +36,7 @@ public class ManejadorTabs extends TabActivity
 
 
 		intent = new Intent().setClass(this, com.mini_colombia.familia.FamiliaInicio.class);
-		spec = tabHost.newTabSpec("").setIndicator("Familia",res.getDrawable(R.drawable.icono_familia_tab)).setContent(intent);
+		spec = tabHost.newTabSpec("").setIndicator("Familia MINI",res.getDrawable(R.drawable.icono_familia_tab)).setContent(intent);
 		tabHost.addTab(spec);
 
 
