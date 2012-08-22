@@ -109,4 +109,38 @@
     <string name="TAG_COMUNIDAD_EVENTOS_TEMPLATE_COLOR">template_color</string>
     <string name="TAG_COMUNIDAD_EVENTOS">eventos</string>
 
+    <!-- Tags para la seccion de vitrinas -->
+    <string name="TAG_VITRINAS_DIRECCION_BARRANQUILLA">Calle 62 # 4-56</string>
+    <string name="TAG_VITRINAS_DIRECCION_MEDELLIN">Calle 62 # 4-56</string>
+    <string name="TAG_VITRINAS_DIRECCION_PEREIRA">Calle 62 # 4-56</string>
+    <string name="TAG_VITRINAS_DIRECCION_BOGOTA">Calle 62 # 4-56</string>
+    <string name="TAG_VITRINAS_DIRECCION_CALI">Calle 62 # 4-56</string>
+
+    <string name="TAG_VITRINAS_TELEFONO_CONSTANTE">Tel:</string>
+    <string name="TAG_VITRINAS_TELEFONO_BARRANQUILLA">57.2.893 6469</string>
+    <string name="TAG_VITRINAS_TELEFONO_MEDELLIN">57.2.893 6469</string>
+    <string name="TAG_VITRINAS_TELEFONO_PEREIRA">57.2.893 6469</string>
+    <string name="TAG_VITRINAS_TELEFONO_BOGOTA">57.2.893 6469</string>
+    <string name="TAG_VITRINAS_TELEFONO_CALI">57.2.893 6469</string>
+    
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_CONSTANTE">LO ATENDERA:</string>
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_BQUILLA">ALEJANDRO RODRIGUEZ</string>
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_MEDELLIN">ALEJANDRO RODRIGUEZ</string>
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_PEREIRA">ALEJANDRO RODRIGUEZ</string>
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_BOGOTA">ALEJANDRO RODRIGUEZ</string>
+    <string name="TAG_VITRINAS_NOMBRE_MECANICO_CALI">ALEJANDRO RODRIGUEZ</string>
+    
+    <string name="TAG_VITRINAS_MAIL_MECANICO_BQUILLA">alejo80805@hotmail.com</string>
+    <string name="TAG_VITRINAS_MAIL_MECANICO_MEDELLIN">alejo80805@hotmail.com</string>
+    <string name="TAG_VITRINAS_MAIL_MECANICO_PEREIRA">alejo80805@hotmail.com</string>
+    <string name="TAG_VITRINAS_MAIL_MECANICO_BOGOTA">alejo80805@hotmail.com</string>
+    <string name="TAG_VITRINAS_MAIL_MECANICO_CALI">alejo80805@hotmail.com</string>
+    
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_CONSTANTE">cel:</string>
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_BQUILLA">321 567 4567</string>
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_MEDELLIN">321 567 4567</string>
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_PEREIRA">321 567 4567</string>
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_BOGOTA">321 567 4567</string>
+    <string name="TAG_VITRINAS_CELULAR_MECANICO_CALI">321 567 4567</string>
+    
 </resources>

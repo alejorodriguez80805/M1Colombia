@@ -117,6 +117,10 @@
             android:name=".vitrinas.VitrinasInicio"
             android:screenOrientation="portrait"
             android:theme="@style/noTitle" />
+                <activity
+            android:name=".vitrinas.VitrinasCiudad"
+            android:screenOrientation="portrait"
+            android:theme="@style/noTitle" />
 
         <!-- Declaracion de las actividades de la seccion descargas -->
         <activity

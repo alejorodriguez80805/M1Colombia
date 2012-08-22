@@ -80,7 +80,7 @@ public class VitrinasInicio extends ActivityGroup
 	@Override
 	public void onBackPressed() 
 	{
-		ComunidadInicio.grupoComunidad.back();
+		VitrinasInicio.grupoVitrinas.back();
 		return;
 	}
 	
