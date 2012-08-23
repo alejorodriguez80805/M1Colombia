@@ -1,34 +1,30 @@
 package com.mini_colombia.values;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "modelo")
-public class Modelo 
+
+public class Modelo implements Serializable
 {
 	
+
 	//Atributos
 	
+	private static final long serialVersionUID = 1L;
 
-	
-	@DatabaseField
+
 	private String imagen;
 	
-	@DatabaseField(id = true,index = true)
+
 	private String nombre;
 	
-	@DatabaseField
+
 	private String thumbnail;
-
 	
-	public Modelo()
-	{
-		//Metodo utilizado por el ORM
-	}
-	
-	
-
-
+	private ArrayList<Edicion> ediciones;
 
 	/**
 	 * Constructor
@@ -36,11 +32,12 @@ public class Modelo
 	 * @param nombre
 	 * @param descripcion
 	 */
-	public Modelo(String imagen, String nombre, String thumbnail)
+	public Modelo(String imagen, String nombre, String thumbnail, ArrayList<Edicion> ediciones)
 	{
 		this.imagen = imagen;
 		this.nombre = nombre;
 		this.thumbnail = thumbnail;
+		this.ediciones = ediciones;
 	}
 	
 	public String getThumbnail() {
@@ -75,19 +72,12 @@ public class Modelo
 	{
 		this.nombre = nombre;
 	}
-
 	
-	public String toString()
+	public ArrayList<Edicion> getEdiciones()
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append(getImagen());
-		sb.append(getNombre());
-		sb.append(getThumbnail());
-		
-		return sb.toString();
-		
-		
+		return ediciones;
 	}
+
 	
 	
 	

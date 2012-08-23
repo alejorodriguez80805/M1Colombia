@@ -6,7 +6,7 @@
         "ediciones": [
             {
                 "template_color": "204,23,19",
-                "imagen": "mini_principal",
+                "imagen": "mini_cooper_s",
                 "test_drive": true,
                 "descripcion": "<html>\r\n<head>\r\n<style type=\"text/css\">\r\nbody {\r\n   font-family: \"HelveticaNeue-Light\", \"Helvetica Neue Light\", \"Helvetica Neue\", Helvetica, Arial, \"Lucida Grande\", sans-serif; \r\n   font-weight: 300;\r\n}\r\n</style>\r\n</head>\r\n<body style=\"background-color:black;\">\r\n<div style=\"background-color:black\">\r\n\t<p align=\"justify\" style=\"color:white;\">\r\n\tEl motor impresiona por su potencia inmensa. Cada uno de los componentes tiene que pasar duras pruebas antes de merecer el distintivo &quot;John Cooper Works&quot;. El resultado: Caracter&iacute;sticas de un motor apto para carreras as&iacute; como pistones y v&aacute;lvulas muy fuertes hacen que el motor de inyecci&oacute;n directa de 1,6 litros alcance su rendimiento m&aacute;ximo. Con overboost, el par m&aacute;ximo se vuelve a aumentar en 20 Nm a 280 Nm. &iquest;Moderaci&oacute;n? Casi imposible.</p>\r\n</div>\r\n</body>\r\n</html>",
                 "nombre": "MINI JOHN COOPER WORKS.",

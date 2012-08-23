@@ -66,7 +66,7 @@ public class FamiliaInicio  extends ActivityGroup
 
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutFamilia);
-		daoModelo = darDaoModelo();
+//		daoModelo = darDaoModelo();
 
 		AssetManager am = getAssets();
 		try 

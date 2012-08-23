@@ -1,12 +1,7 @@
 package com.mini_colombia.familia;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,9 +10,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -29,19 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.SelectArg;
-import com.j256.ormlite.stmt.Where;
 import com.mini_colombia.R;
-import com.mini_colombia.db.DataBaseHelper;
 import com.mini_colombia.parser.Parser;
-import com.mini_colombia.servicios.ObtenerImagen;
-import com.mini_colombia.servicios.Resize;
 import com.mini_colombia.values.Edicion;
-import com.mini_colombia.values.Modelo;
 
 public class FamiliaModelos extends Activity 
 {
@@ -76,11 +58,15 @@ public class FamiliaModelos extends Activity
 			JSONObject objeto = parser.getJsonFromInputStream(is);
 			JSONArray modelos = objeto.getJSONArray(getString(R.string.TAG_MODELO));
 			JSONObject modelo = modelos.getJSONObject(numModelo);
+			
+			final String nombre_modelo = modelo.getString(getString(R.string.TAG_NOMBRE_MODELO));
+			String imagen_modelo = modelo.getString(getString(R.string.TAG_IMAGEN_MODELO));
+			
 
 			//Creacion del titulo
 			TextView textoTitulo = (TextView)findViewById(R.id.TituloModelo);
 			textoTitulo.setTypeface(tipoMini);
-			textoTitulo.setText(modelo.getString(getString(R.string.TAG_NOMBRE_MODELO)));
+			textoTitulo.setText(nombre_modelo);
 
 			//Creacion de la imagen de la izquierda
 			ImageView iv = new ImageView(this);
@@ -88,9 +74,7 @@ public class FamiliaModelos extends Activity
 			horScroll.setHorizontalFadingEdgeEnabled(false);
 			horScroll.setHorizontalScrollBarEnabled(false);
 			LayoutParams parametros = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			String y = modelo.getString(getString(R.string.TAG_IMAGEN_MODELO));
-			int p = getResources().getIdentifier(modelo.getString(getString(R.string.TAG_IMAGEN_MODELO)), "drawable", getApplicationContext().getPackageName());
-			iv.setImageResource(getResources().getIdentifier(modelo.getString(getString(R.string.TAG_IMAGEN_MODELO)), "drawable", getApplicationContext().getPackageName()));
+			iv.setImageResource(getResources().getIdentifier(imagen_modelo, "drawable", getApplicationContext().getPackageName()));
 			iv.setLayoutParams(parametros);
 			horScroll.addView(iv);
 
@@ -104,9 +88,19 @@ public class FamiliaModelos extends Activity
 
 				final int j=i;
 				JSONObject edicion = ediciones.getJSONObject(i);
+				String nombre_edicion = edicion.getString(getString(R.string.TAG_NOMBRE_EDICION));
+				String imagen_edicion = edicion.getString(getString(R.string.TAG_IMAGEN_EDICION));
+				String imagen_thumbnail_edicion = edicion.getString(getString(R.string.TAG_IMAGEN_THUMBNAIL_EDICION));
+				boolean test_drive_edicion = Boolean.parseBoolean(edicion.getString(getString(R.string.TAG_TEST_DRIVE_EDICION)));
+				String templateColor = edicion.getString(getString(R.string.TAG_TEMPLATE_EDICION));
+				String descripcion_edicion = edicion.getString(getString(R.string.TAG_DESCRIPCION_EDICION));
+				
+				final Edicion e = new Edicion(imagen_edicion, nombre_edicion, descripcion_edicion, imagen_thumbnail_edicion, test_drive_edicion, templateColor);
+				
+
 				ib = new ImageButton(this);
 				LayoutParams parametrosThumb = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				ib.setBackgroundResource(getResources().getIdentifier(edicion.getString(getString(R.string.TAG_IMAGEN_THUMBNAIL_EDICION)),"drawable", getApplicationContext().getPackageName()));
+				ib.setBackgroundResource(getResources().getIdentifier(imagen_thumbnail_edicion,"drawable", getApplicationContext().getPackageName()));
 				ib.setLayoutParams(parametrosThumb);
 				ib.setOnClickListener(new OnClickListener() {
 
@@ -114,8 +108,10 @@ public class FamiliaModelos extends Activity
 					public void onClick(View arg0) 
 					{
 						Intent i = new Intent(FamiliaModelos.this, FamiliaEdicion.class);
-						i.putExtra(EDICION, j);
-						i.putExtra(MODELO, numModelo);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("objeto", e);
+						i.putExtras(bundle);
+						i.putExtra("MODELO", nombre_modelo);
 						i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						View v1 = FamiliaInicio.grupoFamilia.getLocalActivityManager().startActivity("", i).getDecorView();
 						FamiliaInicio actividadPadre =(FamiliaInicio) getParent(); 

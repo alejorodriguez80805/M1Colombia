@@ -15,7 +15,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil
 {
 	
 	private static final Class<?>[] classes = new Class[] {
-	    Modelo.class, Edicion.class, Persistencia.class, Timestamp.class, Noticia.class
+	     Persistencia.class, Timestamp.class, Noticia.class
 	  };
 	
 	public static void main(String[] args) throws SQLException, IOException {
