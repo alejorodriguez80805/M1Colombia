@@ -14,9 +14,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dip"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="7dip"
+        android:layout_marginRight="7dip"
+        android:layout_marginTop="5dip"
         android:layout_weight="2"
         android:orientation="vertical" >
 
@@ -24,7 +24,7 @@
             android:id="@+id/TextViewInicioFamilia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="7dip"
             android:background="@drawable/toolbar_subtitle"
             android:gravity="left|center_vertical"
             android:paddingLeft="7dip" />
@@ -33,7 +33,7 @@
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="7dip"
             android:scrollbars="none" >
 
             <LinearLayout

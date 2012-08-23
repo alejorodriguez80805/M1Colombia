@@ -24,22 +24,22 @@
             android:id="@+id/tituloDescargasWallpapers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="7dip"
             android:background="@drawable/toolbar_subtitle"
             android:gravity="center_vertical"
-            android:paddingLeft="7dp"
+            android:paddingLeft="7dip"
             android:text="@string/WALLPAPERS"
             android:textColor="#D0D0D0" />
 
         <ScrollView
             android:id="@+id/scrollViewWallpapers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="7dp"
+            android:layout_height="0dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="7dip"
             android:layout_weight="0.75"
             android:scrollbars="none" >
 

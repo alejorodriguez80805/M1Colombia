@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="7dp"
+    android:layout_marginTop="7dip"
     android:background="@android:color/black"
     android:orientation="vertical" >
 
@@ -15,9 +15,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="7dip"
+        android:layout_marginRight="7dip"
+        android:layout_marginTop="5dip"
         android:layout_weight="2"
         android:orientation="vertical" >
 
@@ -25,7 +25,7 @@
             android:id="@+id/TextoTituloInstrucciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="7dip"
             android:background="@drawable/toolbar_subtitle"
             android:gravity="center|center_vertical"
             android:textColor="#D0D0D0"
@@ -35,7 +35,7 @@
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="7dip"
             android:scrollbars="none" >
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     android:id="@+id/TextoInstrucciones1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="7dip"
                     android:gravity="center"
                     android:textColor="#D0D0D0" />
 
@@ -64,7 +64,7 @@
                     android:id="@+id/TextoInstrucciones2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="7dip"
                     android:gravity="center"
                     android:text="@string/Instruccion1"
                     android:textColor="#D0D0D0" />

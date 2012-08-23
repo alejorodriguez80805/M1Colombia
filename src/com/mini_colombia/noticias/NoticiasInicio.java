@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,11 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-import com.mini_colombia.ManejadorTabs;
 import com.mini_colombia.R;
 import com.mini_colombia.db.DataBaseHelper;
 import com.mini_colombia.servicios.ObtenerImagen;
@@ -56,12 +53,6 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 	public static NoticiasInicio grupoNoticias;
 
 	public ArrayList<View> historialViews;
-	
-	private static NoticiasInicio instance;
-	
-	
-	
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -119,8 +110,12 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 				//Adicion de la parte izquierda
 				layout.addView(imagen);
 
+				//Atributos utilizados para el metodo setOnClickListener
+				final String categoria_noticia =n.getCategoria();
+				final int j =i;
 
-
+				//Continuacion del proceso de pintar los componentes
+				
 				rel = new RelativeLayout(this);
 				rel.setBackgroundResource(R.drawable.fondo_noticias);
 				RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -158,7 +153,43 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 				Button b = new Button(this);
 				b.setBackgroundColor(Color.TRANSPARENT);
 				b.setId(i);
-				b.setOnClickListener(this);
+				b.setOnClickListener(new OnClickListener() 
+				{
+					
+					@Override
+					public void onClick(View arg0) 
+					{
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
+						{
+							Intent iNoticia = new Intent(NoticiasInicio.this, NoticiasNoticia.class);
+							iNoticia.putExtra(NOMBRE_CATEGORIA, categoria_noticia);
+							iNoticia.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							View v1 = getLocalActivityManager().startActivity("", iNoticia).getDecorView();
+							reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
+						}
+						
+					}
+				});
 				RelativeLayout.LayoutParams paramsbutton = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT,80);
 				paramsbutton.addRule(RelativeLayout.BELOW,fechaNoticia.getId());
 				b.setLayoutParams(paramsbutton);
@@ -221,7 +252,44 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 				verMas.setPadding(4, 0, 7, 7);
 				verMas.setLayoutParams(paramsVer);
 				verMas.setId((i+1)*10);
-				verMas.setOnClickListener(this);
+				verMas.setOnClickListener(new OnClickListener() 
+				{
+					
+					@Override
+					public void onClick(View v) 
+					{
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						
+						if(conexionInternet)
+						{
+							Intent iCategoria = new Intent(NoticiasInicio.this, NoticiasCategorias.class);
+							iCategoria.putExtra(NOMBRE_CATEGORIA, j+1);
+							iCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							View v1 = getLocalActivityManager().startActivity("", iCategoria).getDecorView();
+							reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
+						}
+						
+					}
+				});
 
 				rel.addView(verMas);
 				layout.addView(rel,relParams);

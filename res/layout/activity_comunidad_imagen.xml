@@ -15,9 +15,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="40dip"
         android:background="@android:color/black"
         android:orientation="vertical" >
 
@@ -50,7 +50,7 @@
                 android:id="@+id/imagenBoton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="5dip"
                 android:layout_toRightOf="@id/imagenBoton1"
                 android:background="@drawable/mail"
                 android:onClick="enviarCorreo" />
@@ -59,7 +59,7 @@
                 android:id="@+id/imagenBoton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="25dip"
                 android:layout_toRightOf="@id/imagenBoton2"
                 android:background="@drawable/facebook"
                 android:onClick="abrirFacebook" />
@@ -68,7 +68,7 @@
                 android:id="@+id/imagenBoton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="5dip"
                 android:layout_toRightOf="@id/imagenBoton3"
                 android:background="@drawable/twitter"
                 android:onClick="abrirTwitter" />
@@ -77,7 +77,7 @@
                 android:id="@+id/imagenBoton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
+                android:layout_marginLeft="25dip"
                 android:layout_toRightOf="@id/imagenBoton4"
                 android:background="@drawable/share"
                 android:onClick="compartirImagen" />
