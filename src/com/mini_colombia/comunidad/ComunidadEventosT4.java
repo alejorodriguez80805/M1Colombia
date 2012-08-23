@@ -3,11 +3,14 @@ package com.mini_colombia.comunidad;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -109,6 +112,18 @@ public class ComunidadEventosT4 extends Activity implements AsyncTaskListener<Bi
 		if (getParent() != null) 
 			context = getParent();
 		return context;
+	}
+	
+	public void abrirFacebook(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MINI"));
+		startActivity(i);
+	}
+
+	public void abrirTwitter(View v)
+	{
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/MINI"));
+		startActivity(i);
 	}
 
 }

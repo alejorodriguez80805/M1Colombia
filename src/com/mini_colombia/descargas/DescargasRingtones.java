@@ -1,6 +1,7 @@
 package com.mini_colombia.descargas;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +52,11 @@ public class DescargasRingtones extends Activity
 	@Override
 	public void onBackPressed() 
 	{
-		super.onBackPressed();
+		for (Ringtone ringtone : arregloRingtones) 
+		{
+			ringtone.stop();
+		}
+		getParent().onBackPressed();
 	}
 
 

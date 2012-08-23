@@ -34,7 +34,7 @@ import com.mini_colombia.servicios.ObtenerImagen;
 import com.mini_colombia.servicios.Resize;
 import com.mini_colombia.values.Noticia;
 
-public class NoticiasInicio extends ActivityGroup implements OnClickListener
+public class NoticiasInicio extends ActivityGroup 
 {
 	private static final String NOMBRE_CATEGORIA="categoria";
 
@@ -159,9 +159,8 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 					@Override
 					public void onClick(View arg0) 
 					{
-						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo red  = conMgr.getActiveNetworkInfo();
-						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						
+						boolean conexionInternet = hayConexionInternet();
 						if(conexionInternet)
 						{
 							Intent iNoticia = new Intent(NoticiasInicio.this, NoticiasNoticia.class);
@@ -172,20 +171,7 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 						}
 						else
 						{
-							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
-							alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
-							alertBuilder.setCancelable(false);
-							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
-							{
-
-								@Override
-								public void onClick(DialogInterface dialog, int which) 
-								{
-									onCreate(null);
-								}
-							});
-							AlertDialog alerta = alertBuilder.create();
-							alerta.show();
+							lanzarDialogoInternet();
 						}
 						
 					}
@@ -258,9 +244,7 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 					@Override
 					public void onClick(View v) 
 					{
-						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-						NetworkInfo red  = conMgr.getActiveNetworkInfo();
-						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						boolean conexionInternet = hayConexionInternet();
 						
 						if(conexionInternet)
 						{
@@ -272,20 +256,7 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 						}
 						else
 						{
-							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
-							alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
-							alertBuilder.setCancelable(false);
-							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
-							{
-
-								@Override
-								public void onClick(DialogInterface dialog, int which) 
-								{
-									onCreate(null);
-								}
-							});
-							AlertDialog alerta = alertBuilder.create();
-							alerta.show();
+							lanzarDialogoInternet();
 						}
 						
 					}
@@ -366,6 +337,32 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 		}
 
 	}
+	
+	public boolean hayConexionInternet()
+	{
+		ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo red  = conMgr.getActiveNetworkInfo();
+		boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+		return conexionInternet;
+	}
+	
+	public void lanzarDialogoInternet()
+	{
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
+		alertBuilder.setCancelable(false);
+		alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				onCreate(null);
+			}
+		});
+		AlertDialog alerta = alertBuilder.create();
+		alerta.show();
+	}
 
 
 
@@ -373,95 +370,6 @@ public class NoticiasInicio extends ActivityGroup implements OnClickListener
 	{
 		historialViews.add(v);
 		setContentView(v);
-	}
-
-	@Override
-	public void onClick(View v) 
-	{
-		ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo red  = conMgr.getActiveNetworkInfo();
-		boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
-		
-		if(conexionInternet)
-		{
-			Intent iNoticia = new Intent(NoticiasInicio.this, NoticiasNoticia.class);
-			Intent iCategoria = new Intent(NoticiasInicio.this, NoticiasCategorias.class);
-			View v1;
-			int id = v.getId();
-			switch (id) 
-			{
-			case 0:
-
-				iNoticia.putExtra(NOMBRE_CATEGORIA, CATEGORIA_INTERNACIONAL);
-				iNoticia.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iNoticia).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 1:
-				iNoticia.putExtra(NOMBRE_CATEGORIA, CATEGORIA_NACIONAL);
-				iNoticia.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iNoticia).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 2:
-				iNoticia.putExtra(NOMBRE_CATEGORIA, PROMOCION);
-				iNoticia.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iNoticia).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 3:
-				iNoticia.putExtra(NOMBRE_CATEGORIA,NOVEDAD);
-				iNoticia.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iNoticia).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 10:
-				iCategoria.putExtra(NOMBRE_CATEGORIA, 1);
-				iCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iCategoria).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 20:
-				iCategoria.putExtra(NOMBRE_CATEGORIA, 2);
-				iCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iCategoria).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 30:
-				iCategoria.putExtra(NOMBRE_CATEGORIA, 3);
-				iCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iCategoria).getDecorView();
-				reemplazarView(v1);
-				break;
-			case 40:
-				iCategoria.putExtra(NOMBRE_CATEGORIA, 40);
-				iCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				v1 = getLocalActivityManager().startActivity("", iCategoria).getDecorView();
-				reemplazarView(v1);
-				break;
-			}
-		}
-		else
-		{
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
-			alertBuilder.setCancelable(false);
-			alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
-			{
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) 
-				{
-					onCreate(null);
-				}
-			});
-			AlertDialog alerta = alertBuilder.create();
-			alerta.show();
-		}
-		
-		
-
-
 	}
 	
 	public Context darContexto()

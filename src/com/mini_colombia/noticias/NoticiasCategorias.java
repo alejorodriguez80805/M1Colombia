@@ -7,12 +7,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -47,12 +51,12 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 	private JSONObject objetoJson;
 
 	private ArrayList<Bitmap> imagenes;
-	
+
 	private ArrayList<String> paginas;
-	
+
 	private static final String URL_PAGINA ="url";
-	
-	
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -98,9 +102,9 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 	public Context darContexto()
 	{
 		Context context = null;
-	    if (getParent() != null) 
-	    	context = getParent();
-	    return context;
+		if (getParent() != null) 
+			context = getParent();
+		return context;
 	}
 
 	private class DescargasJson extends AsyncTask<Integer, Integer, Boolean>
@@ -210,7 +214,7 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 				paramsFecha.setMargins(0, 7, 0, 0);
 				fecha.setLayoutParams(paramsFecha);
 				rel.addView(fecha);
-				
+
 				Button b = new Button(this);
 				b.setBackgroundColor(Color.TRANSPARENT);
 				b.setId(i);
@@ -265,17 +269,41 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 	@Override
 	public void onClick(View v) 
 	{
-		int i = v.getId();
-		String pagina= paginas.get(i);
-		Intent j = new Intent(NoticiasCategorias.this,NoticiasNoticia.class);
-		j.putExtra(URL_PAGINA, pagina);
-		j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		View v1 = NoticiasInicio.grupoNoticias.getLocalActivityManager().startActivity("",j).getDecorView();
-		NoticiasInicio actividadPadre = (NoticiasInicio)getParent();
-		actividadPadre.reemplazarView(v1);
-		
-		
-		
+		ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo red  = conMgr.getActiveNetworkInfo();
+		boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+		if(conexionInternet)
+		{
+			int i = v.getId();
+			String pagina= paginas.get(i);
+			Intent j = new Intent(NoticiasCategorias.this,NoticiasNoticia.class);
+			j.putExtra(URL_PAGINA, pagina);
+			j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			View v1 = NoticiasInicio.grupoNoticias.getLocalActivityManager().startActivity("",j).getDecorView();
+			NoticiasInicio actividadPadre = (NoticiasInicio)getParent();
+			actividadPadre.reemplazarView(v1);
+		}
+		else
+		{
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+			alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+			alertBuilder.setCancelable(false);
+			alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+			{
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) 
+				{
+					finish();
+				}
+			});
+			AlertDialog alerta = alertBuilder.create();
+			alerta.show();
+		}
+
+
+
+
 	}
 
 }

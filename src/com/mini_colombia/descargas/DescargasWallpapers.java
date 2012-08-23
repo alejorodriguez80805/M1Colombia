@@ -22,6 +22,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,18 +48,18 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 {
 
 
-	
+
 	private static final String NOMBRE_CARPETA = "MINI";
 
 	private static final String SEPARADOR = "/";
-	
+
 	private static final String EXTENSION = ".jpg";
-	
+
 	private static final int AVANCE_IMAGENES = 3;
 
-	
+
 	private int numActualImagenes;
-	
+
 
 	private ArrayList<Bitmap> thumbnails;
 	private ArrayList<Bitmap> imagenes;
@@ -78,7 +80,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 		Typeface tipoMini = Typeface.createFromAsset(getAssets(), "fonts/mibd.ttf");
 		TextView titulo = (TextView)findViewById(R.id.tituloDescargasWallpapers);
 		titulo.setTypeface(tipoMini);
-		
+
 		numActualImagenes = 0;
 
 
@@ -118,7 +120,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 			progress = ProgressDialog.show(darContexto(),"","Cargando...",false);
 		}
 
-		
+
 		/**
 		 * Metodo que descarga tanto 
 		 */
@@ -147,8 +149,8 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 				}
 			}
 
-			
-			
+
+
 			else
 				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_SIGUIENTES_WALLPAPERS)+params[0]);
 
@@ -204,9 +206,9 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	public void onTaskComplete(ArrayList<ImagenGaleria> result)
 	{
 		numActualImagenes+=AVANCE_IMAGENES;
-		
+
 		LinearLayout layoutPrincipal = (LinearLayout) findViewById(R.id.linearLayoutWallpapers);
-		
+
 		for(int i=0;i<result.size();i++)
 		{
 			final int j =i;
@@ -217,15 +219,15 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 			LinearLayout.LayoutParams vParams = new LinearLayout.LayoutParams(0,10);
 			v.setLayoutParams(vParams);
 			layoutPrincipal.addView(v);
-			
+
 			RelativeLayout relLayout = new RelativeLayout(this);
 			relLayout.setBackgroundColor(Color.TRANSPARENT);
 			relLayout.setBackgroundDrawable(new BitmapDrawable(result.get(i).getThumbnail()));
 			RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-			
-		
-			
-			
+
+
+
+
 			Button thumbnail = new Button(this);
 			RelativeLayout.LayoutParams bParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,292);
 			thumbnail.setLayoutParams(bParams);
@@ -246,10 +248,14 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 					View v1 = DescargasInicio.grupoDescargas.getLocalActivityManager().startActivity("", i1).getDecorView();
 					DescargasInicio actividadPadre = (DescargasInicio) getParent();
 					actividadPadre.reemplazarView(v1);
+
+
+
+
 				}
 			});
 			relLayout.addView(thumbnail);
-			
+
 			Button bDescargar = new Button(this);
 			bDescargar.setBackgroundColor(Color.TRANSPARENT);
 			final String urlImagen = result.get(i).getImagen();
@@ -265,7 +271,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 					File directorio = new File(path);
 					if(!directorio.exists())
 						directorio.mkdir();
-					
+
 					File f = new File(path,nombreImagen+ EXTENSION);
 					if(!f.exists())
 					{
@@ -300,12 +306,12 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 								@Override
 								public void onClick(DialogInterface dialog, int which) 
 								{
-									
+
 								}
 							});
 							AlertDialog alerta = alertBuilder.create();
 							alerta.show();
-							
+
 						} 
 						catch (FileNotFoundException e) 
 						{
@@ -330,13 +336,13 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 							@Override
 							public void onClick(DialogInterface dialog, int which) 
 							{
-								
+
 							}
 						});
 						AlertDialog alerta = alertBuilder.create();
 						alerta.show();
-						
-						
+
+
 
 					}	
 				}
@@ -348,7 +354,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 
 			layoutPrincipal.addView(relLayout, relParams);
 		}
-		
+
 		Button verMas = new Button(this);
 		verMas.setBackgroundColor(Color.BLACK);
 		LinearLayout.LayoutParams paramsVerMas = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
@@ -378,7 +384,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 						@Override
 						public void onClick(DialogInterface dialog, int which) 
 						{
-							
+
 						}
 					});
 					AlertDialog alerta = alertBuilder.create();
@@ -398,28 +404,28 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	{
 
 		private ProgressDialog progress;
-		
+
 		@Override
 		protected void onPreExecute() 
 		{
 			progress = ProgressDialog.show(darContexto(),"","Descargando imagen...",false);
 		}
-		
+
 		@Override
 		protected Bitmap doInBackground(String... params) 
 		{
 			return DescargarImagenOnline.descargarImagen(params[0]);
 		}
-		
+
 		@Override
 		protected void onPostExecute(Bitmap result) 
 		{
 			progress.dismiss();
 			super.onPostExecute(result);
 		}
-		
+
 	}
-	
+
 
 	public Context darContexto()
 	{
@@ -428,14 +434,45 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 			context = getParent();
 		return context;
 	}
-	
+
 	/**
 	 * Metodo que es utilizado por metodo onclick del boton verMas para bajar mas wallpapers, es decir llamar la tarea asincronica.
 	 */
 	public void ejecutarTareaDescargarThumbnails()
 	{
 		new DescargarThumbnails(darContexto(), this, false).execute(""+numWallpapers);
-		
+
+	}
+
+	public boolean hayConexionInternet()
+	{
+		ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo red  = conMgr.getActiveNetworkInfo();
+		boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+		return conexionInternet;
+	}
+
+	public void lanzarDialogoInternet()
+	{
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+		alertBuilder.setMessage("Debes tener accesso a internet para esta secci—n de la aplicacion");
+		alertBuilder.setCancelable(false);
+		alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+		{
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				onCreate(null);
+			}
+		});
+		AlertDialog alerta = alertBuilder.create();
+		alerta.show();
+	}
+
+	public Context darContextoDialogo()
+	{
+		return this;
 	}
 
 

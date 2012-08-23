@@ -457,6 +457,11 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 	{
 		botonPlay.setClickable(true);
 	}
+	
+	public void stop()
+	{
+		player.stop();
+	}
 
 	/**
 	 * Clase receiver encargada de recibir los resultados del servicio lanzado cuando

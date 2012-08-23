@@ -7,11 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -148,40 +152,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 				});
@@ -196,40 +225,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 
@@ -245,40 +299,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 				});
@@ -293,40 +372,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 
@@ -342,40 +446,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
-
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 
@@ -391,40 +520,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
+
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
-
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 
@@ -440,40 +594,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);	
+						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
 						}
 
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}
 				});
@@ -488,40 +667,65 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					@Override
 					public void onClick(View arg0) 
 					{
-						Intent i1 = null;
-
-						switch (template) 
+						ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+						NetworkInfo red  = conMgr.getActiveNetworkInfo();
+						boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
+						if(conexionInternet)
 						{
-						case 1:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
+							Intent i1 = null;
 
-							break;
+							switch (template) 
+							{
+							case 1:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT1.class);
 
-						case 2:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
-							break;
+								break;
 
-						case 3:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
-							break;
+							case 2:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT2.class);
+								break;
 
-						case 4:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
-							break;
+							case 3:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT3.class);
+								break;
 
-						case 5:
-							i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
-							break;
+							case 4:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT4.class);
+								break;
+
+							case 5:
+								i1 = new Intent(ComunidadNuevosEventos.this, ComunidadEventosT5.class);
+								break;
+							}
+
+
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("objeto", evento);
+							i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							i1.putExtras(bundle);
+							View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
+							ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
+							actividadPadre.reemplazarView(v1);
 						}
+						else
+						{
+							AlertDialog.Builder alertBuilder = new AlertDialog.Builder(darContexto());
+							alertBuilder.setMessage("Debes tener accesso a internet para entrar a esta seccion");
+							alertBuilder.setCancelable(false);
+							alertBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() 
+							{
 
+								@Override
+								public void onClick(DialogInterface dialog, int which) 
+								{
+									onCreate(null);
+								}
+							});
+							AlertDialog alerta = alertBuilder.create();
+							alerta.show();
+						}
+						
 
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("objeto", evento);
-						i1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-						i1.putExtras(bundle);
-						View v1 = ComunidadInicio.grupoComunidad.getLocalActivityManager().startActivity("", i1).getDecorView();
-						ComunidadInicio actividadPadre = (ComunidadInicio) getParent();
-						actividadPadre.reemplazarView(v1);
 
 					}	
 
