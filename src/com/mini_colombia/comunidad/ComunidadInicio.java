@@ -93,6 +93,7 @@ public class ComunidadInicio extends ActivityGroup
 	{
 		ConnectivityManager conMgr =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo red  = conMgr.getActiveNetworkInfo();
+		boolean re =red.getType() == ConnectivityManager.TYPE_WIFI;
 		boolean conexionInternet = red!=null && red.getState() == NetworkInfo.State.CONNECTED;
 		if(conexionInternet)
 		{

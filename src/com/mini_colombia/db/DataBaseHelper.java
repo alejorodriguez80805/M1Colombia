@@ -57,8 +57,6 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper
 		try 
 		{
 			Log.i(DataBaseHelper.class.getName(), "onCreate");
-			TableUtils.createTable(connectionSource, Modelo.class);
-			TableUtils.createTable(connectionSource, Edicion.class);
 			TableUtils.createTable(connectionSource, Persistencia.class);
 			TableUtils.createTable(connectionSource, Timestamp.class);
 			TableUtils.createTable(connectionSource, Noticia.class);
@@ -75,8 +73,6 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper
 		try 
 		{
 			Log.i(DataBaseHelper.class.getName(), "onUpgrade");
-			TableUtils.dropTable(connectionSource, Modelo.class, true);
-			TableUtils.dropTable(connectionSource, Edicion.class, true);
 			TableUtils.dropTable(connectionSource, Persistencia.class, true);
 			TableUtils.dropTable(connectionSource, Timestamp.class, true);
 			TableUtils.dropTable(connectionSource, Noticia.class, true);
@@ -101,19 +97,19 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper
 		return persistenciaDao;
 	}
 	
-	public Dao<Modelo, String> darDaoModelo() throws SQLException
-	{
-		if(modeloDao == null)
-			modeloDao = getDao(Modelo.class);
-		return modeloDao;
-	}
-	
-	public Dao<Edicion, String> darDaoEdicion() throws SQLException
-	{
-		if(edicionDao == null)
-			edicionDao = getDao(Edicion.class);
-		return edicionDao;
-	}
+//	public Dao<Modelo, String> darDaoModelo() throws SQLException
+//	{
+//		if(modeloDao == null)
+//			modeloDao = getDao(Modelo.class);
+//		return modeloDao;
+//	}
+//	
+//	public Dao<Edicion, String> darDaoEdicion() throws SQLException
+//	{
+//		if(edicionDao == null)
+//			edicionDao = getDao(Edicion.class);
+//		return edicionDao;
+//	}
 	
 	public Dao<Timestamp,Integer> darDaoTimestamp() throws SQLException 
 	{

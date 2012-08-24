@@ -373,36 +373,36 @@ public class InicioActivity extends Activity
 	}
 
 
-	public Dao<Edicion, String> darDaoEdicion()
-	{
-
-		Dao<Edicion, String> daoEdicion = null;
-		try 
-		{
-			daoEdicion = getHelper().darDaoEdicion();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return daoEdicion;
-	}
-
-	public Dao<Modelo,String> darDaoModelo()
-	{
-		Dao<Modelo, String> daoModelo = null;
-
-		try 
-		{
-			daoModelo = getHelper().darDaoModelo();
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return daoModelo;
-
-	}
+//	public Dao<Edicion, String> darDaoEdicion()
+//	{
+//
+//		Dao<Edicion, String> daoEdicion = null;
+//		try 
+//		{
+//			daoEdicion = getHelper().darDaoEdicion();
+//		} 
+//		catch (SQLException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//		return daoEdicion;
+//	}
+//
+//	public Dao<Modelo,String> darDaoModelo()
+//	{
+//		Dao<Modelo, String> daoModelo = null;
+//
+//		try 
+//		{
+//			daoModelo = getHelper().darDaoModelo();
+//		} 
+//		catch (SQLException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//		return daoModelo;
+//
+//	}
 
 	public Dao<Persistencia, Integer> darDaoPersistencia()
 	{
