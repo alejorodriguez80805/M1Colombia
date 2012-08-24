@@ -114,6 +114,8 @@ public class InicioActivity extends Activity
 		private Dao<Noticia, Integer> daoNoticia;
 		
 		private Dao<Timestamp, Integer> daoTimestamp;
+		
+		private Dao<Persistencia, Integer> daoPersistencia;
 
 		ProgressDialog progress;
 
@@ -129,6 +131,8 @@ public class InicioActivity extends Activity
 		{
 			daoNoticia = darDaoNoticia();
 			daoTimestamp = darDaoTimestamp();
+			daoPersistencia = darDaoPersistencia();
+			
 			Parser jparser = new Parser();
 			String s = (getString(R.string.CONSTANTE_CARGAR_NOTICIAS_URL))+"/0";
 			JSONObject jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_CARGAR_NOTICIAS_URL)+"0");
@@ -139,6 +143,8 @@ public class InicioActivity extends Activity
 				String timeStamp = jsonObject.getString(getString(R.string.TAG_TIMESTAMP));
 				BigDecimal fTimestamp =new BigDecimal(timeStamp);
 				DaoTimestamp.primeraVez(daoTimestamp, fTimestamp,"noticias");
+				
+				DaoPersistencia.primeraVez(daoPersistencia);
 				
 				JSONArray noticias = jsonObject.getJSONArray(getString(R.string.TAG_NOTICIAS));
 
