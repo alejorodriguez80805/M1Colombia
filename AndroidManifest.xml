@@ -6,8 +6,12 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
+    
 
-    <supports-screens android:normalScreens="true" />
+    <supports-screens
+        android:largeScreens="false"
+        android:normalScreens="true"
+        android:smallScreens="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -117,7 +121,7 @@
             android:name=".vitrinas.VitrinasInicio"
             android:screenOrientation="portrait"
             android:theme="@style/noTitle" />
-                <activity
+        <activity
             android:name=".vitrinas.VitrinasCiudad"
             android:screenOrientation="portrait"
             android:theme="@style/noTitle" />
