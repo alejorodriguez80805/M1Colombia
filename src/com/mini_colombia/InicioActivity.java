@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.UpdateBuilder;
@@ -38,8 +39,6 @@ import com.mini_colombia.dao.DaoPersistencia;
 import com.mini_colombia.dao.DaoTimestamp;
 import com.mini_colombia.db.DataBaseHelper;
 import com.mini_colombia.parser.Parser;
-import com.mini_colombia.values.Edicion;
-import com.mini_colombia.values.Modelo;
 import com.mini_colombia.values.Noticia;
 import com.mini_colombia.values.Persistencia;
 import com.mini_colombia.values.Timestamp;
@@ -91,8 +90,7 @@ public class InicioActivity extends Activity
 			}
 			else if(conexionInternet)
 			{
-//				new ActualizarFamilia().execute("");
-//				new ActualizarNoticias().execute("");
+				new ActualizarNoticias().execute("");
 			}
 		} 
 		catch (SQLException e) 
