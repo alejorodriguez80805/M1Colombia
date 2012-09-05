@@ -41,7 +41,7 @@ public class ManejadorTabs extends TabActivity
 
 
 		intent = new Intent().setClass(this, com.mini_colombia.comunidad.ComunidadInicio.class);
-		spec = tabHost.newTabSpec("").setIndicator("Comunidad",res.getDrawable(R.drawable.icono_comunidad_tab)).setContent(intent);
+		spec = tabHost.newTabSpec("").setIndicator(" Comunidad",res.getDrawable(R.drawable.icono_comunidad_tab)).setContent(intent);
 		tabHost.addTab(spec);
 
 		intent = new Intent().setClass(this, com.mini_colombia.noticias.NoticiasInicio.class);
