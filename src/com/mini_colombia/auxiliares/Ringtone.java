@@ -124,7 +124,7 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 			public void onClick(View v) 
 			{
 
-				
+
 				contexto.clickPlay(id);
 				deshabilitarDescargasYRingtone();
 				player = new MediaPlayer();
@@ -133,7 +133,7 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 				{
 					player.setDataSource(url);
 					player.setOnPreparedListener((OnPreparedListener) darContexto());
-
+					player.prepareAsync();
 				} 
 				catch (IllegalArgumentException e) 
 				{
@@ -150,7 +150,7 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				player.prepareAsync();
+
 				deshabilitarPlay();
 				progress = ProgressDialog.show(padreTabs,"","Cargando ringtone",false);
 			}
@@ -219,7 +219,7 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 					Uri newUri = contexto.getContentResolver().insert(uri, values);
 
 					RingtoneManager.setActualDefaultRingtoneUri(contexto, RingtoneManager.TYPE_RINGTONE, newUri);
-					
+
 					AlertDialog.Builder alertBuilder = new AlertDialog.Builder(padreTabs);
 					alertBuilder.setMessage("Felicitaciones! Tienes un nuevo ringtone");
 					alertBuilder.setCancelable(false);
@@ -395,7 +395,7 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 	{
 		return this;
 	}
-	
+
 	public SeekBar darSeekBarActual()
 	{
 		return this.seekBar;
@@ -410,16 +410,16 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 	{
 		return (DescargasRingtones) contexto;
 	}
-	
+
 	public String darDireccionSDcard()
 	{
 		return  DescargasRingtones.darDireccionSDcard();
 	}
-	
+
 	//////////////////////////////////////////////////////////////////	
 	//  Metodos para bloquear y desbloquear los botones
 	//////////////////////////////////////////////////////////////////
-	
+
 	public void deshabilitarBotones()
 	{
 		botonPlay.setClickable(false);
@@ -447,17 +447,17 @@ public class Ringtone extends Activity implements MediaPlayer.OnPreparedListener
 		botonPonerRingtone.setClickable(true);
 		botonDescargar.setClickable(true);
 	}
-	
+
 	public void deshabilitarPlay()
 	{
 		botonPlay.setClickable(false);
 	}
-	
+
 	public void habilitarPlay()
 	{
 		botonPlay.setClickable(true);
 	}
-	
+
 	public void stop()
 	{
 		player.stop();

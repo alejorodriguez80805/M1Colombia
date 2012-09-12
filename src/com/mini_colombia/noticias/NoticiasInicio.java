@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -87,6 +89,10 @@ public class NoticiasInicio extends ActivityGroup
 			TextView resumen;
 			TextView verMas;
 
+			Resources res = getResources();
+			float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 303, res.getDisplayMetrics());
+			float px1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 136, res.getDisplayMetrics());
+			
 			for(int i = 0;i<noticias.size(); i ++)
 			{
 
@@ -94,7 +100,7 @@ public class NoticiasInicio extends ActivityGroup
 				//Layout contenedor tanto de la parte izquierda como de la parte derecha
 				layout = new LinearLayout(this);
 				layout.setOrientation(LinearLayout.HORIZONTAL);
-				LinearLayout.LayoutParams parametros = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+				LinearLayout.LayoutParams parametros = new LayoutParams((int) px,LinearLayout.LayoutParams.WRAP_CONTENT);
 				parametros.setMargins(0, 15, 0, 0);
 				layout.setLayoutParams(parametros);
 				layout.setId(1);
@@ -103,8 +109,9 @@ public class NoticiasInicio extends ActivityGroup
 
 				//Seccion de carga de la imagen
 				bitmap = ObtenerImagen.darImagen(n.getThumbnail(), getApplicationContext());
-				bitmap1 =Resize.resizeBitmap(bitmap, 198, 192);
+				bitmap1 =Resize.resizeBitmap(bitmap, (int) px1, (int)px1);
 				imagen = new ImageView(this);
+				LinearLayout.LayoutParams parametrosImagen = new LayoutParams((int)px1, LinearLayout.LayoutParams.WRAP_CONTENT);
 				imagen.setImageBitmap(bitmap1);
 
 				//Adicion de la parte izquierda
@@ -118,7 +125,7 @@ public class NoticiasInicio extends ActivityGroup
 				
 				rel = new RelativeLayout(this);
 				rel.setBackgroundResource(R.drawable.fondo_noticias);
-				RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+				RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 				rel.setLayoutParams(relParams);
 
 

@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,12 +31,10 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mini_colombia.InicioActivity;
 import com.mini_colombia.R;
 import com.mini_colombia.parser.Parser;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.Resize;
-import com.mini_colombia.values.Noticia;
 
 public class NoticiasCategorias extends Activity implements OnClickListener
 {
@@ -169,7 +169,9 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 	private void pintarPantalla()
 	{
 		LinearLayout layoutPrincipal = (LinearLayout)findViewById(R.id.linearLayoutNoticiasCategorias);
-
+		Resources res = getResources();
+		float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 303, res.getDisplayMetrics());
+		float px1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 136, res.getDisplayMetrics());
 
 		JSONArray noticias;
 		try 
@@ -183,7 +185,15 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 				String titulo = noticia.getString(getString(R.string.TAG_NOTICIAS_TITULO));
 
 				ImageView iv = new ImageView(darContexto());
-				iv.setImageBitmap(imagenes.get(i));
+				
+				//resize de la imagen
+				Bitmap asdf = imagenes.get(i);
+				Bitmap imagenFinal = Resize.resizeBitmap(asdf, (int) px1, (int) px1);
+				
+				LinearLayout.LayoutParams parametros1 = new LayoutParams((int)px1,LinearLayout.LayoutParams.WRAP_CONTENT);
+				iv.setLayoutParams(parametros1);
+				iv.setImageBitmap(imagenFinal);
+				
 				String fechaCreacion = noticia.getString(getString(R.string.TAG_NOTICIAS_FECHA_CREACION));
 				String url = noticia.getString(getString(R.string.TAG_NOTICIAS_URL));
 				paginas.add(url);
@@ -191,7 +201,7 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 				//Layout contenedor tanto de la parte izquierda como de la parte derecha
 				LinearLayout layout = new LinearLayout(darContexto());
 				layout.setOrientation(LinearLayout.HORIZONTAL);
-				LinearLayout.LayoutParams parametros = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+				LinearLayout.LayoutParams parametros = new LayoutParams((int)px,LinearLayout.LayoutParams.WRAP_CONTENT);
 				parametros.setMargins(0, 15, 0, 0);
 				layout.setLayoutParams(parametros);
 
@@ -199,7 +209,7 @@ public class NoticiasCategorias extends Activity implements OnClickListener
 
 				RelativeLayout rel = new RelativeLayout(darContexto());
 				rel.setBackgroundResource(R.drawable.fondo_noticias_categoria);
-				RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+				RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
 				rel.setLayoutParams(relParams);
 
 				TextView fecha = new TextView(darContexto());
