@@ -20,7 +20,6 @@ public class DescargarImagenOnline
 			urlImagen = new URL(url);
 			HttpURLConnection conn= (HttpURLConnection)urlImagen.openConnection();
 			conn.setDoInput(true);
-			conn.setUseCaches(true);
 			conn.connect();
 			InputStream is = conn.getInputStream();
 			BitmapFactory.Options options = new BitmapFactory.Options();

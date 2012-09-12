@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +45,11 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Array
 
 	private String nombreImagen;
 	
-	private boolean tieneTitulo;
+//	private boolean tieneTitulo;
+	
+	private int anchoImagen;
+	
+	private int altoImagen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -73,6 +79,10 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Array
 		String url = getIntent().getStringExtra("url");
 		DescargarImagen tarea = new DescargarImagen(darContexto(), this);
 		tarea.execute(url);
+		
+		Resources res = getResources();
+		anchoImagen = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 303, res.getDisplayMetrics());
+		altoImagen = (int) ((int)anchoImagen*0.667);
 
 	}
 
@@ -104,8 +114,10 @@ public class ComunidadImagen extends Activity implements AsyncTaskListener<Array
 		@Override
 		protected ArrayList<Bitmap> doInBackground(String... params) 
 		{
+			int a = anchoImagen;
+			int b1 = altoImagen;
 			Bitmap b = DescargarImagenOnline.descargarImagen(params[0]);
-			Bitmap bFinal = Resize.resizeBitmap(b, 292, 440);
+			Bitmap bFinal = Resize.resizeBitmap(b, altoImagen, anchoImagen);
 			imagenes.add(b);
 			imagenes.add(bFinal);
 			return imagenes;

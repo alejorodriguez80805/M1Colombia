@@ -14,12 +14,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="40dip"
         android:background="@android:color/black"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_weight="1" >
 
         <TextView
             android:id="@+id/comunidad_nombre_imagen"
@@ -37,7 +38,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dip" >
+            android:layout_marginTop="30dip" >
 
             <ImageButton
                 android:id="@+id/imagenBoton1"
@@ -81,7 +82,7 @@
                 android:layout_toRightOf="@id/imagenBoton4"
                 android:background="@drawable/share"
                 android:onClick="compartirImagen" />
-        </RelativeLayout>
+        </RelativeLayout> 
     </LinearLayout>
 
 </LinearLayout>
