@@ -5,13 +5,24 @@ import java.util.ArrayList;
 import com.mini_colombia.R;
 import com.mini_colombia.comunidad.ComunidadGaleria;
 import com.mini_colombia.comunidad.ComunidadInicio;
+import com.mini_colombia.servicios.Resize;
 
 import android.app.ActivityGroup;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class VitrinasInicio extends ActivityGroup
@@ -33,20 +44,37 @@ public class VitrinasInicio extends ActivityGroup
 		TextView titulo = (TextView)findViewById(R.id.tituloVitrinas);
 		titulo.setTypeface(tipoMini);
 		
+		Resources res = getResources();
+		ImageView imagenInicio = (ImageView) findViewById(R.id.imagenInicioVitrinas);
+		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 197, res.getDisplayMetrics());
+		Bitmap imagenPreliminar = BitmapFactory.decodeResource(res,R.drawable.vitrinas_inicio);
+		Bitmap imagenFinal = Resize.resizeBitmap(imagenPreliminar, (int)Math.round(anchoImagen*1.6), (int)anchoImagen);
+		imagenInicio.setImageBitmap(imagenFinal);
+
 		Button b1 = (Button) findViewById(R.id.button1Vitrinas);
-		b1.setTextSize(10);
-		
+		b1.setTextSize(12);
+		b1.setTypeface(tipoMini);
+		b1.setTextColor(Color.rgb(208, 208, 208));
+
 		Button b2 = (Button) findViewById(R.id.button2Vitrinas);
-		b2.setTextSize(11);
+		b2.setTextSize(12);
+		b2.setTypeface(tipoMini);
+		b2.setTextColor(Color.rgb(208, 208, 208));
 		
 		Button b3 = (Button) findViewById(R.id.button3Vitrinas);
-		b3.setTextSize(11);
+		b3.setTextSize(12);
+		b3.setTypeface(tipoMini);
+		b3.setTextColor(Color.rgb(208, 208, 208));
 		
 		Button b4 = (Button) findViewById(R.id.button4Vitrinas);
-		b4.setTextSize(11);
+		b4.setTextSize(12);
+		b4.setTypeface(tipoMini);
+		b4.setTextColor(Color.rgb(208, 208, 208));
 		
 		Button b5 = (Button) findViewById(R.id.button5Vitrinas);
-		b5.setTextSize(11);
+		b5.setTextSize(12);
+		b5.setTypeface(tipoMini);
+		b5.setTextColor(Color.rgb(208, 208, 208));
 	}
 	
 	public void reemplazarView(View v)

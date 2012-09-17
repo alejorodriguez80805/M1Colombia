@@ -19,19 +19,6 @@
         android:background="#D0D0D0"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tituloVitrinasCiudad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginTop="7dip"
-            android:background="@drawable/toolbar_subtitle"
-            android:gravity="center_vertical"
-            android:paddingLeft="7dip"
-            android:text="VITRINAS."
-            android:textColor="#D0D0D0" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,14 +30,13 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/textVitrinasCiudad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="303dip"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dip"
+                    android:layout_marginBottom="7dip"
                     android:background="@drawable/toolbar_subtitle"
                     android:paddingLeft="17dip"
                     android:paddingTop="5dip"
@@ -62,6 +48,7 @@
                     android:layout_height="wrap_content" >
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutVitrinasCiudad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/fondo_vitrinas_ciudad"
@@ -69,18 +56,21 @@
 
                         <ImageView
                             android:id="@+id/vitrinaCiudadImagen"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_marginLeft="10dip"
+                            android:layout_marginRight="10dip"
                             android:layout_marginTop="10dip" />
 
                         <TextView
-                            android:id="@+id/textView1"
+                            android:id="@+id/textoVitrinaCiudadLoAtendera"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dip"
                             android:layout_marginTop="10dip"
-                            android:text="Direccion vitrina:" />
+                            android:text="DIRECCION VITRINA:"
+                            android:textColor="#FF0000" />
 
                         <TextView
                             android:id="@+id/vitrinaCiudadDireccion"
@@ -94,26 +84,39 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dip" />
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/divisor_test_drive" />
+                            android:layout_marginLeft="10dip"
+                            android:layout_marginRight="10dip"
+                            android:layout_marginTop="5dip"
+                            android:background="#FF0000"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/textView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dip"
+                                android:background="@android:color/black"
+                                android:padding="3dip"
+                                android:text="LO ATENDERA:"
+                                android:textColor="#FF0000" />
+                        </LinearLayout>
 
                         <ImageView
                             android:id="@+id/vitrinaCiudadImagenMecanico"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dip"
-                            android:layout_marginTop="7dip"
-                            android:src="@drawable/vitrinas_imagen_mecanico" />
+                            android:layout_marginLeft="10dip"
+                            android:layout_marginTop="15dip" />
 
                         <TextView
                             android:id="@+id/vitrinasCiudadNombreMecanico"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dip"
+                            android:layout_marginTop="7dip"
                             android:text="TextView" />
 
                         <TextView
