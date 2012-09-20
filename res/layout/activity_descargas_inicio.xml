@@ -33,23 +33,21 @@
             android:textColor="#D0D0D0" />
 
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/descargasImagenWallpapers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:layout_marginTop="14dip"
-            android:background="@drawable/thumbnail_wallpaper"
+            android:layout_marginTop="7dip"
             android:onClick="inicioWallpapers" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/descargasImagenRingtones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
-            android:layout_marginTop="14dip"
-            android:background="@drawable/thumbnail_ringtones"
+            android:layout_marginTop="8dip"
             android:onClick="inicioRingtones" />
     </LinearLayout>
 
