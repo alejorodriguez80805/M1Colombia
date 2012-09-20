@@ -14,8 +14,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="0dip"
-        android:layout_marginLeft="7dip"
-        android:layout_marginRight="7dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:layout_marginTop="5dip"
         android:layout_weight="2"
         android:orientation="vertical" >
@@ -30,9 +30,8 @@
 
         <GridView
             android:id="@+id/gridGaleria"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.19"
             android:fadingEdge="vertical|none"
             android:horizontalSpacing="15dip"
             android:listSelector="@android:color/transparent"

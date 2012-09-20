@@ -1,33 +1,28 @@
 package com.mini_colombia.comunidad;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.ActivityGroup;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mini_colombia.R;
 import com.mini_colombia.auxiliares.ImagenGaleria;
-import com.mini_colombia.descargas.DescargasInicio;
-import com.mini_colombia.parser.Parser;
-import com.mini_colombia.servicios.DescargarImagenOnline;
+import com.mini_colombia.servicios.Resize;
 
 public class ComunidadInicio extends ActivityGroup
 {
@@ -52,6 +47,22 @@ public class ComunidadInicio extends ActivityGroup
 		titulo.setText("COMUNIDAD.");
 		titulo.setTypeface(tipoMini);
 		titulo.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+		
+		Resources res = getResources();
+		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 145.5, res.getDisplayMetrics());
+		
+		ImageButton botonEventos = (ImageButton) findViewById(R.id.comunidadImagenEventos);
+		Bitmap imagenEventosPreliminar = BitmapFactory.decodeResource(res, R.drawable.boton_eventos);
+		Bitmap imagenEventosFinal = Resize.resizeBitmap(imagenEventosPreliminar, (int) Math.round(anchoImagen*2.1), (int) anchoImagen);
+		botonEventos.setBackgroundDrawable(null);
+		botonEventos.setImageBitmap(imagenEventosFinal);
+		
+		ImageButton botonGaleria = (ImageButton) findViewById(R.id.comunidadImagenGaleria);
+		Bitmap imagenPreliminarGaleria = BitmapFactory.decodeResource(res, R.drawable.boton_galeria);
+		Bitmap imagenFinalGaleria = Resize.resizeBitmap(imagenPreliminarGaleria, (int) Math.round(anchoImagen*2.1), (int) anchoImagen);
+		botonGaleria.setBackgroundDrawable(null);
+		botonGaleria.setImageBitmap(imagenFinalGaleria);
+		
 	}
 	
 	public void iniciarEventos(View v)

@@ -11,11 +11,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SyncStateContract.Constants;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -27,6 +29,7 @@ import com.mini_colombia.parser.Parser;
 import com.mini_colombia.servicios.AsyncTaskListener;
 import com.mini_colombia.servicios.DescargarImagenOnline;
 import com.mini_colombia.servicios.ImageAdapter;
+import com.mini_colombia.servicios.Resize;
 
 public class ComunidadGaleria extends Activity implements AsyncTaskListener<ArrayList<ImagenGaleria>>
 {
@@ -78,6 +81,7 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 		private ProgressDialog progress;
 
 		private boolean primeraVez;
+		Resources res;
 
 		public DescargarInformacion(Context context, AsyncTaskListener<ArrayList<ImagenGaleria>> callback, boolean primeraVez)
 		{
@@ -86,6 +90,8 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 			this.callback = callback;
 
 			this.primeraVez = primeraVez;
+			
+			res = getResources();
 		}
 
 		@Override
@@ -126,16 +132,18 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 			try 
 			{
 				JSONArray imagenes = jsonObject.getJSONArray(getString(R.string.TAG_COMUNIDAD_GALERIA_IMAGENES));
-
+				float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 145.5, res.getDisplayMetrics());
 				for(int i = 0; i<imagenes.length(); i++)
 				{
 					JSONObject imagen = imagenes.getJSONObject(i);
 
 					String nombre = imagen.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_NOMBRE));
 					String thumbnailURL = imagen.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_THUMBNAIL));
-					Bitmap imagenThumbnail = DescargarImagenOnline.descargarImagen(thumbnailURL);
+					Bitmap imagenThumbnailPreliminar = DescargarImagenOnline.descargarImagen(thumbnailURL);
+					Bitmap imagenThumbnailFinal = Resize.resizeBitmap(imagenThumbnailPreliminar, (int) anchoImagen, (int) anchoImagen);
+					
 					String imagenURL = imagen.getString(getString(R.string.TAG_COMUNIDAD_GALERIA_IMAGEN));
-					ImagenGaleria j = new ImagenGaleria(nombre, imagenThumbnail, imagenURL);
+					ImagenGaleria j = new ImagenGaleria(nombre, imagenThumbnailFinal, imagenURL);
 					arreglo.add(j);
 
 				}

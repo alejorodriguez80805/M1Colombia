@@ -46,7 +46,7 @@ public class VitrinasInicio extends ActivityGroup
 		
 		Resources res = getResources();
 		ImageView imagenInicio = (ImageView) findViewById(R.id.imagenInicioVitrinas);
-		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 197, res.getDisplayMetrics());
+		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 193, res.getDisplayMetrics());
 		Bitmap imagenPreliminar = BitmapFactory.decodeResource(res,R.drawable.vitrinas_inicio);
 		Bitmap imagenFinal = Resize.resizeBitmap(imagenPreliminar, (int)Math.round(anchoImagen*1.6), (int)anchoImagen);
 		imagenInicio.setImageBitmap(imagenFinal);
