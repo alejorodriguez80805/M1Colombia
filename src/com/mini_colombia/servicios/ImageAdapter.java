@@ -6,9 +6,11 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v4.util.*;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -31,13 +33,15 @@ public class ImageAdapter extends BaseAdapter
 	private Context c;
 	private Activity padre;
 	ProgressBar progress;
+	Resources resources;
 	
 
-	public ImageAdapter( Context c, ArrayList<ImagenGaleria> arregloImagenes, Activity padre)
+	public ImageAdapter( Context c, ArrayList<ImagenGaleria> arregloImagenes, Activity padre, Resources resources)
 	{
 		mContext = c;
 		this.arregloImagenes = arregloImagenes;
 		this.padre = padre;
+		this.resources = resources;
 
 	}
 
@@ -61,9 +65,10 @@ public class ImageAdapter extends BaseAdapter
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) 
 	{
-
-
 		ImageView imageView;
+		float espacioHorizontal = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,5, resources.getDisplayMetrics());
+		float espacioVertical = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, resources.getDisplayMetrics());
+		
 		if (convertView == null) 
 		{  // if it's not recycled, initialize some attributes
 
@@ -76,7 +81,7 @@ public class ImageAdapter extends BaseAdapter
 			c=imageView.getContext();
 			imageView.setLayoutParams(new GridView.LayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 20, 8, 8);
+			imageView.setPadding((int) espacioHorizontal,(int) espacioVertical, (int) espacioHorizontal, (int) espacioHorizontal);
 
 		} 
 		else 

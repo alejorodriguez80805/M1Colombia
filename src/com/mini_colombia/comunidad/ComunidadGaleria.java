@@ -182,8 +182,8 @@ public class ComunidadGaleria extends Activity implements AsyncTaskListener<Arra
 		numActualImagenes+=AVANCE_IMAGENES;
 		arregloImagenes.addAll(result);
 		final GridView grid = (GridView) findViewById(R.id.gridGaleria);
-
-		grid.setAdapter(new ImageAdapter(this, arregloImagenes, darPadre()));
+		Resources res = getResources();
+		grid.setAdapter(new ImageAdapter(this, arregloImagenes, darPadre(),res));
 
 	}
 
