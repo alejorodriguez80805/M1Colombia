@@ -12,103 +12,110 @@
         android:background="@drawable/toolbar_title"
         android:gravity="center|center_vertical" />
 
-    <TextView
-        android:id="@+id/tituloInicioEventos"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dip"
-        android:layout_marginRight="7dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
         android:layout_marginTop="7dip"
-        android:background="@drawable/toolbar_subtitle"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="7dip"
-        android:text="NUEVOS EVENTOS."
-        android:textColor="#D0D0D0" />
+        android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tituloInicioEventos"
             android:layout_width="wrap_content"
-            android:layout_height="0dip"
-            android:layout_marginLeft="7dip"
-            android:layout_marginRight="7dip"
-            android:layout_marginTop="5dip"
-            android:layout_weight="2"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/toolbar_subtitle"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="7dip"
+            android:text="NUEVOS EVENTOS."
+            android:textColor="#D0D0D0" />
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip" >
 
             <LinearLayout
-                android:id="@+id/eventosFila1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dip"
-                android:layout_marginBottom="7dip" >
+                android:layout_width="wrap_content"
+                android:layout_height="0dip"
+                android:layout_weight="2"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/eventosFila1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dip"
+                    android:layout_marginTop="7dip" >
+
+                    <ImageButton
+                        android:id="@+id/eventosButton1"
+                        android:layout_width="97.5dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dip"
+                        android:background="@android:color/transparent" />
+
+                    <ImageButton
+                        android:id="@+id/eventosButton2"
+                        android:layout_width="97.5dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dip"
+                        android:background="@android:color/transparent" />
+
+                    <ImageButton
+                        android:id="@+id/eventosButton3"
+                        android:layout_width="97.5dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="3dip"
+                        android:background="@android:color/transparent" />
+                </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/eventosButton1"
-                    android:layout_width="101dip"
+                    android:id="@+id/eventosButton4"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dip"
                     android:background="@android:color/transparent" />
 
-                <ImageButton
-                    android:id="@+id/eventosButton2"
-                    android:layout_width="101dip"
+                <LinearLayout
+                    android:id="@+id/eventosFila3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
+                    android:layout_marginBottom="7dip" >
 
-                <ImageButton
-                    android:id="@+id/eventosButton3"
-                    android:layout_width="101dip"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
+                    <ImageButton
+                        android:id="@+id/eventosButton5"
+                        android:layout_width="193dip"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent" />
+
+                    <ImageButton
+                        android:id="@+id/eventosButton6"
+                        android:layout_width="106dip"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/eventosFila4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageButton
+                        android:id="@+id/eventosButton7"
+                        android:layout_width="151dip"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent" />
+
+                    <ImageButton
+                        android:id="@+id/eventosButton8"
+                        android:layout_width="152dip"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent" />
+                </LinearLayout>
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/eventosButton4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:layout_marginBottom="7dip" />
-
-            <LinearLayout
-                android:id="@+id/eventosFila3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="7dip" >
-
-                <ImageButton
-                    android:id="@+id/eventosButton5"
-                    android:layout_width="182dip"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
-
-                <ImageButton
-                    android:id="@+id/eventosButton6"
-                    android:layout_width="121dip"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/eventosFila4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageButton
-                    android:id="@+id/eventosButton7"
-                    android:layout_width="151dip"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
-
-                <ImageButton
-                    android:id="@+id/eventosButton8"
-                    android:layout_width="152dip"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

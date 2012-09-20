@@ -12,12 +12,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -55,11 +57,14 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 		private AsyncTaskListener<ArrayList<Evento>> callback;
 
 		private ProgressDialog progress;
+		
+		Resources res;
 
 		public DescargarInfo(Context context, AsyncTaskListener<ArrayList<Evento>> callback)
 		{
 			this.context = context;
 			this.callback = callback;
+			res = getResources();
 		}
 
 		@Override
@@ -74,6 +79,12 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 			eventos = new ArrayList<Evento>();
 			Parser jparser = new Parser();
 			JSONObject jsonObject =jparser.getJSONFromUrl(getString(R.string.CONSTANTE_COMUNIDAD_DAR_EVENTOS));
+			
+			float anchoImagenesPrimeraFila = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,(float) 97.5, res.getDisplayMetrics());
+			float anchoImagenSegundaFila = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 296, res.getDisplayMetrics());
+			float anchoImagenTerceraFilaPrimeraColumna = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 193, res.getDisplayMetrics());
+			float anchoImagenTerceraFilaSegundaColumna = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 103, res.getDisplayMetrics());
+			
 			try 
 			{
 				JSONArray eventos = jsonObject.getJSONArray(getString(R.string.TAG_COMUNIDAD_EVENTOS));
@@ -94,13 +105,13 @@ public class ComunidadNuevosEventos extends Activity implements AsyncTaskListene
 					String posicion = p.split("-")[1];
 					Bitmap thumbnail = null;
 					if(posicion.equals("1") || posicion.equals("2") || posicion.equals("3"))
-						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 178, 145);
+						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, (int) Math.round(anchoImagenesPrimeraFila*1.18),(int) anchoImagenesPrimeraFila);
 					else if(posicion.equals("4"))
-						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, 223, 452);
+						thumbnail = Resize.resizeBitmap(thumbnailPreliminar, (int) Math.round(anchoImagenSegundaFila*0.5),(int) anchoImagenSegundaFila);
 					else if(posicion.equals("5"))
-						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 185, 270);
+						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, (int) Math.round(anchoImagenTerceraFilaPrimeraColumna*0.76), (int) anchoImagenTerceraFilaPrimeraColumna);
 					else if(posicion.equals("6"))
-						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 185, 180);
+						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, (int) Math.round(anchoImagenTerceraFilaSegundaColumna*1.27), (int) anchoImagenTerceraFilaSegundaColumna);
 					else if(posicion.equals("7") || posicion.equals("8"))
 						thumbnail =	Resize.resizeBitmap(thumbnailPreliminar, 154, 225);
 
