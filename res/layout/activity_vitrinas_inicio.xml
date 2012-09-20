@@ -42,12 +42,12 @@
 
             <ImageView
                 android:id="@+id/imagenInicioVitrinas"
-                android:layout_width="wrap_content"
+                android:layout_width="192dip"
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_width="104dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical" >
 
                 <Button

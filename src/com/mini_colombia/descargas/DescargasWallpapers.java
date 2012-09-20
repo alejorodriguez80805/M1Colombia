@@ -18,6 +18,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -130,6 +132,8 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 			Parser jparser = new Parser();
 			JSONObject jsonObject;
 			arregloImagenes = new ArrayList<ImagenGaleria>();
+			Resources res = getResources();
+			float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 296, res.getDisplayMetrics());
 			if(primeraVez)
 			{
 				jsonObject = jparser.getJSONFromUrl(getString(R.string.CONSTANTE_DESCARGAS_WALLPAPERS));
@@ -166,7 +170,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 					//Manejo thumbnail
 					String urlThumbnail = wallpaper.getString(getString(R.string.TAG_WALLPAPERS_THUMBNAIL));
 					Bitmap thumbnailPreliminar = DescargarImagenOnline.descargarImagen(urlThumbnail);
-					Bitmap thumbnailPostResize= Resize.resizeBitmap(thumbnailPreliminar, 292,440);
+					Bitmap thumbnailPostResize= Resize.resizeBitmap(thumbnailPreliminar, (int) Math.round(anchoImagen*0.66),(int) anchoImagen);
 					thumbnails.add(thumbnailPostResize);
 
 					//Manejo imagen
