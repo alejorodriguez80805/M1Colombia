@@ -49,18 +49,16 @@ public class ComunidadInicio extends ActivityGroup
 		titulo.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
 		
 		Resources res = getResources();
-		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 145.5, res.getDisplayMetrics());
+		float anchoImagen = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 142, res.getDisplayMetrics());
 		
 		ImageButton botonEventos = (ImageButton) findViewById(R.id.comunidadImagenEventos);
 		Bitmap imagenEventosPreliminar = BitmapFactory.decodeResource(res, R.drawable.boton_eventos);
-		Bitmap imagenEventosFinal = Resize.resizeBitmap(imagenEventosPreliminar, (int) Math.round(anchoImagen*2.1), (int) anchoImagen);
-		botonEventos.setBackgroundDrawable(null);
+		Bitmap imagenEventosFinal = Resize.resizeBitmap(imagenEventosPreliminar, (int) Math.round(anchoImagen*2.1)-1, (int) anchoImagen);
 		botonEventos.setImageBitmap(imagenEventosFinal);
 		
 		ImageButton botonGaleria = (ImageButton) findViewById(R.id.comunidadImagenGaleria);
 		Bitmap imagenPreliminarGaleria = BitmapFactory.decodeResource(res, R.drawable.boton_galeria);
-		Bitmap imagenFinalGaleria = Resize.resizeBitmap(imagenPreliminarGaleria, (int) Math.round(anchoImagen*2.1), (int) anchoImagen);
-		botonGaleria.setBackgroundDrawable(null);
+		Bitmap imagenFinalGaleria = Resize.resizeBitmap(imagenPreliminarGaleria, (int) Math.round(anchoImagen*2.1)-1, (int) anchoImagen);
 		botonGaleria.setImageBitmap(imagenFinalGaleria);
 		
 	}

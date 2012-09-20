@@ -68,7 +68,8 @@
                     android:id="@+id/webViewT4"
                     android:layout_width="182dip"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dip" />
+                    android:layout_marginTop="5dip"
+                    android:scrollbars="none" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -76,7 +76,7 @@
                         android:layout_width="145dip"
                         android:layout_height="match_parent"
                         android:isScrollContainer="true"
-                        android:scrollbars="vertical" />
+                        android:scrollbars="none" />
 
 
                     <ImageView

@@ -80,7 +80,8 @@
                         android:layout_width="212dip"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="5dip" />
+                        android:layout_marginLeft="5dip"
+                        android:scrollbars="none" />
 
                     <ImageButton
                         android:id="@+id/eventosT1Twitter"

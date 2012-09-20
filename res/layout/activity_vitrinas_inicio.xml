@@ -42,7 +42,7 @@
 
             <ImageView
                 android:id="@+id/imagenInicioVitrinas"
-                android:layout_width="192dip"
+                android:layout_width="194dip"
                 android:layout_height="wrap_content"/>
 
             <LinearLayout

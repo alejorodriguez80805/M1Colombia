@@ -110,7 +110,8 @@
                         android:layout_height="match_parent"
                         android:layout_alignLeft="@id/titulo2ImagenT3"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@id/titulo2ImagenT3" />
+                        android:layout_below="@id/titulo2ImagenT3"
+                        android:scrollbars="none" />
 
                 </RelativeLayout>
             </LinearLayout>

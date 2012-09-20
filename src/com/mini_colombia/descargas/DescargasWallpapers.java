@@ -64,7 +64,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 
 
 	private ArrayList<Bitmap> thumbnails;
-	private ArrayList<Bitmap> imagenes;
+//	private ArrayList<Bitmap> imagenes;
 
 	private int numWallpapers;
 
@@ -73,7 +73,7 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 	{
 		super.onCreate(savedInstanceState);
 		thumbnails = new ArrayList<Bitmap>();
-		imagenes = new ArrayList<Bitmap>();
+//		imagenes = new ArrayList<Bitmap>();
 		setContentView(R.layout.activity_descargas_wallpapers);
 		//Se pone true dado que es la primera vez que se hace fetch de los wallpapers
 		DescargarThumbnails tarea = new DescargarThumbnails(darContexto(), this, true);
@@ -227,13 +227,17 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 			RelativeLayout relLayout = new RelativeLayout(this);
 			relLayout.setBackgroundColor(Color.TRANSPARENT);
 			relLayout.setBackgroundDrawable(new BitmapDrawable(result.get(i).getThumbnail()));
-			RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+			
+			int x = result.get(i).getThumbnail().getWidth();
+			int y = result.get(i).getThumbnail().getHeight();
+			
+			RelativeLayout.LayoutParams relParams = new RelativeLayout.LayoutParams(x,y);
 
 
 
 
 			Button thumbnail = new Button(this);
-			RelativeLayout.LayoutParams bParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,292);
+			RelativeLayout.LayoutParams bParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 			thumbnail.setLayoutParams(bParams);
 			thumbnail.setBackgroundColor(Color.TRANSPARENT);
 			bParams.setMargins(0, 7, 0, 0);
@@ -351,8 +355,8 @@ public class DescargasWallpapers extends Activity implements AsyncTaskListener<A
 					}	
 				}
 			});
-			RelativeLayout.LayoutParams paramsbutton = new RelativeLayout.LayoutParams(115,50);
-			paramsbutton.setMargins(322, 245, 0, 0);
+			RelativeLayout.LayoutParams paramsbutton = new RelativeLayout.LayoutParams( (int) Math.round((float)x*0.3) , (int) Math.round((float) y*0.2));
+			paramsbutton.setMargins( (int) Math.round((float)x*0.65) , (int) Math.round((float) y*0.8), 0, 0);
 			bDescargar.setLayoutParams(paramsbutton);
 			relLayout.addView(bDescargar);
 
